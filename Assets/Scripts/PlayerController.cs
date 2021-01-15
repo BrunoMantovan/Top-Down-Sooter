@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
 
     public int playerHealth = 100;
 
+    public GameObject dieEffect;
+
+    Vector3 startPosition;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -33,7 +37,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         anim.SetBool(stateShooting, false);
-                
+
+        startPosition = this.transform.position;
+
+        RestartPosition();
+    }
+
+    void RestartPosition()
+    {
+        this.transform.position = startPosition;
+        this.rb.velocity = Vector2.zero;
     }
 
     // Update is called once per frame
@@ -84,6 +97,9 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
+        GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 3);
+
         Destroy(gameObject);
     }
 

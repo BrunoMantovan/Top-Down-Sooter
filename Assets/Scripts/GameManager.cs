@@ -6,13 +6,14 @@ using UnityEngine;
 public enum GameState
 {
     inMenu,
-    inGame
+    inGame,
+    dead
 }
 
 public class GameManager : MonoBehaviour
 {
 
-    public GameState currentGameState = GameState.inMenu;
+    public GameState currentGameState = GameState.inGame;
 
     public static GameManager sharedInstance;
 
@@ -48,14 +49,6 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartGame();
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            PauseGame();
-        }
 
     }
 
