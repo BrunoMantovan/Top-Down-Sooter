@@ -11,11 +11,13 @@ public class Shooting : MonoBehaviour
 
     public float fireRate = 1f;
     float nextFire = 0f;
+
+    public Joystick shootJoystick;
     
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
+        if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
             Shoot();

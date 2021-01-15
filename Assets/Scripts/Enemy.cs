@@ -9,19 +9,28 @@ public class Enemy : MonoBehaviour
 
     public Rigidbody2D rb;
 
+    public float timer;
+
     private Animator anim;
     const string stateAttacking = "isAttacking";
+    
 
     public int health = 100;
 
-    
+    private bool attackmode;
+    private bool cooling;
+    private float intTimer;
 
     public GameController GameController;
 
+    public int enemyDamage = 5;
+
+    public GameObject dieEffect;
     
 
     private void Awake()
     {
+        intTimer = timer;
         anim = GetComponent<Animator>();
     }
 
@@ -29,6 +38,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         anim.SetBool(stateAttacking, false);
+        
 
 
         rb = this.GetComponent<Rigidbody2D>();
@@ -95,9 +105,19 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    private void OnTriggerEnter2D(Collider2D trigger)
     {
-        health -= damage;
+        PlayerController player = trigger.GetComponent<PlayerController>();
+
+        if(player != null)
+        {
+            player.TakeDamage(enemyDamage);
+        }
+    }
+
+    public void TakeDamage(int bulletDamage)
+    {
+        health -= bulletDamage;
         if (health <= 0)
         {
             
@@ -107,6 +127,9 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 1.3f);
+
         GameController.EnemyHasDied();
 
         Destroy(gameObject);

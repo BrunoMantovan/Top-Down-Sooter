@@ -18,7 +18,11 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
-    
+    public Joystick joystick;
+
+    public Joystick shootJoystick;
+
+    public int playerHealth = 100;
 
     private void Awake()
     {
@@ -35,8 +39,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = joystick.Horizontal;
+        movement.y = joystick.Vertical;
 
         
 
@@ -44,20 +48,22 @@ public class PlayerController : MonoBehaviour
 
 
         anim.SetBool(stateShooting, Shooting());
+
+        Vector3 moveVector = new Vector3(shootJoystick.Horizontal, shootJoystick.Vertical);
+        if (shootJoystick.Horizontal != 0 || shootJoystick.Vertical != 0)
+        {
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
+        }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-
-        Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90;
-        rb.rotation = angle;
     }
 
     bool Shooting()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if(shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f)
         {
             return true;
         }
@@ -65,6 +71,20 @@ public class PlayerController : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void TakeDamage(int enemyDamage)
+    {
+        playerHealth -= enemyDamage;
+        if (playerHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
     }
 
 }

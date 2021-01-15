@@ -6,7 +6,7 @@ public class bullet : MonoBehaviour
 {
     public GameObject hitEffect;
 
-    public int damage = 50; 
+    public int bulletDamage = 50; 
 
    
 
@@ -17,7 +17,7 @@ public class bullet : MonoBehaviour
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 0.3f);
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
         
