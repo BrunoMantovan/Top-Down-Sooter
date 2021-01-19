@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
 
     const string stateShooting = "Shooting";
+    const string stateMoving = "Moving";
 
     Animator anim;
     private PlayerController player;
@@ -28,26 +29,30 @@ public class PlayerController : MonoBehaviour
 
     Vector3 startPosition;
 
+    bool isAlive = true;
+
+    public GameObject spawnEffect;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
+
+        gameObject.GetComponent<Renderer>().enabled = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
+        Destroy(spawnEff, 0.71f);
+
         anim.SetBool(stateShooting, false);
+        anim.SetBool(stateMoving, false);
 
         startPosition = this.transform.position;
 
-        RestartPosition();
-    }
-
-    void RestartPosition()
-    {
-        this.transform.position = startPosition;
-        this.rb.velocity = Vector2.zero;
-    }
+        Invoke("Spawn", 0.71f);
+    }   
 
     // Update is called once per frame
     void Update()
@@ -59,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
+        
 
         anim.SetBool(stateShooting, Shooting());
 
@@ -67,11 +73,25 @@ public class PlayerController : MonoBehaviour
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
         }
+
+        if(joystick.Horizontal !=0 || joystick.Vertical != 0)
+        {
+            anim.SetBool(stateMoving, true);
+        }
+        else
+        {
+            anim.SetBool(stateMoving, false);
+        }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    public void Spawn()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
     }
 
     bool Shooting()
@@ -97,8 +117,23 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
-        Destroy(effect, 3);
+        if(isAlive == true)
+        {
+            isAlive = false; 
+
+            GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+
+            gameObject.GetComponent<Renderer>().enabled = false;
+
+            Invoke("CallDeathMenu", 1.2f);
+
+        }
+    }
+
+    public void CallDeathMenu()
+    {
+        FindObjectOfType<GameManager>().DeathTrigger();
+
 
         Destroy(gameObject);
     }

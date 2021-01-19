@@ -21,7 +21,9 @@ public class GameManager : MonoBehaviour
 
     public int killedEnemies = 0;
 
-    
+    public Canvas deadCanvas;
+    public Canvas joystickCanvas;
+
 
     private void Awake()
     {
@@ -44,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        else if(currentGameState == GameState.inMenu)
+        else if(currentGameState == GameState.inMenu || currentGameState == GameState.dead)
         {
             Time.timeScale = 0;
         }
@@ -62,6 +64,14 @@ public class GameManager : MonoBehaviour
     {
         SetGameState(GameState.inMenu);
         
+    }
+
+    public void DeathTrigger()
+    {
+        SetGameState(GameState.dead);
+
+        deadCanvas.enabled = true;
+        joystickCanvas.enabled = false;
     }
 
     private void SetGameState(GameState newGameState)
