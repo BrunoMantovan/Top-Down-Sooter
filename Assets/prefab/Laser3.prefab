@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1832226137
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 87af042fa828b1c438ce619e1acc6a4a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 2361245713327064523, guid: 586c809b3b067e746b76e4eea152aeaf, type: 3}
-  damage: 20
+  bulletDamage: 50
 --- !u!50 &451689991671057808
 Rigidbody2D:
   serializedVersion: 4

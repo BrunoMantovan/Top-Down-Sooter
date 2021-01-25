@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class collidertr : MonoBehaviour
 {
-    public GameObject spawner;
+    
+    public float spawnDelay = 4f;
 
-    private void OnTriggerEnter2D(Collider2D collider)
+   void Start()
     {
-        PlayerController player = collider.GetComponent<PlayerController>();
-        
+        Invoke("SpawnStart", spawnDelay);
+    }
 
-        if(player != null)
-        {
-            spawner.GetComponent<Spawner>().SpawnStart();
-        }
-
+    public void SpawnStart()
+    {
+        GetComponent<Spawner>().enabled = true;
     }
 }

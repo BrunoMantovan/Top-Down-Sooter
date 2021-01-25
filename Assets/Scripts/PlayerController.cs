@@ -44,14 +44,15 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
-        Destroy(spawnEff, 0.71f);
+        Destroy(spawnEff, 0.73f);
 
         anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
 
         startPosition = this.transform.position;
 
-        Invoke("Spawn", 0.71f);
+        Invoke("Shake", 0.71f);
+        Invoke("Spawn", 0.73f);
     }   
 
     // Update is called once per frame
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
 
     public void Spawn()
     {
-        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponent<Renderer>().enabled = true;        
     }
 
     bool Shooting()
@@ -126,7 +127,6 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Renderer>().enabled = false;
 
             Invoke("CallDeathMenu", 1.2f);
-
         }
     }
 
@@ -136,6 +136,12 @@ public class PlayerController : MonoBehaviour
 
 
         Destroy(gameObject);
+    }
+
+    void Shake()
+    {
+        
+        CinemachineShake.Instance.ShakeCamera(3f, .15f);
     }
 
 }

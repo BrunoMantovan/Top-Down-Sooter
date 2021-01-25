@@ -12,17 +12,19 @@ public class Spawner : MonoBehaviour
     public int maxEnemies = 10;
     int enemyCounter = 0;
 
-    
+    public float spawnDelay = 4f;    
 
-   
+    void Awake()
+    {
+        GetComponent<Spawner>().enabled = false;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         timeBtwnSpawns = startTimeBtwnSpawns;
 
-        gameObject.SetActive(false);       
-
+        
     }
 
     // Update is called once per frame
@@ -43,10 +45,7 @@ public class Spawner : MonoBehaviour
         
     }
     
-    public void SpawnStart()
-    {
-        gameObject.SetActive(true);
-    }
+   
         
    
 }

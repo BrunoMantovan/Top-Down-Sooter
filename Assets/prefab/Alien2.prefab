@@ -73,9 +73,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: 1620608973
+  m_SortingLayer: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 167724f08f6e8dc48b4787b3470b09a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,12 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4457a6c7014c2e44b4139abff6b0025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   playerPos: {fileID: 0}
   rb: {fileID: 4238806346540749694}
   timer: 0
   health: 100
-  GameController: {fileID: 2166432030971584591, guid: 297328dd45d35154180ed73a0d1a1959, type: 3}
+  GameController: {fileID: 0}
   enemyDamage: 5
   dieEffect: {fileID: 4096907326899823429, guid: a29bf4bf35f9f3b4ba93b5001225b580, type: 3}
 --- !u!58 &5275479507761747893
