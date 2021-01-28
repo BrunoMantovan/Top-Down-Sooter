@@ -6,22 +6,54 @@ public class Shooting : MonoBehaviour
 {
     public Transform fireTip;
     public GameObject bulletPrefab;
+    public GameObject bulletPrefab2;
+    public GameObject rocketPrefab;
 
     public float bulletForce = 20f; //Velocidad de la bala
+    public float rocketForce = 20f;
 
     public float fireRate = 1f;
+    public float bullet2FireRate = 1f;
+    public float rocketFireRate = 1f;
     float nextFire = 0f;
 
     public Joystick shootJoystick;
+
+    public PlayerController playerCont;
     
     // Update is called once per frame
     void Update()
     {
-        if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+        //NormalBullet
+        if((playerCont.bullet2Bool == false) && playerCont.rocketBool == false)
         {
-            nextFire = Time.time + fireRate;
-            Shoot();
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Shoot();
+            }
         }
+
+        //Bullet2
+        if (playerCont.bullet2Bool == true)
+        {
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            {
+                nextFire = Time.time + fireRate;
+                Shoot2();
+            }
+        }
+
+        //Rocket
+        if(playerCont.rocketBool == true)
+        {
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            {
+                nextFire = Time.time + rocketFireRate;
+                Shoot3();
+            }
+        }
+
     }
     
     void Shoot()
@@ -29,5 +61,19 @@ public class Shooting : MonoBehaviour
         GameObject Bullet = Instantiate(bulletPrefab, fireTip.position, fireTip.rotation);
         Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+    }
+
+    void Shoot2()
+    {
+        GameObject Bullet2 = Instantiate(bulletPrefab2, fireTip.position, fireTip.rotation);
+        Rigidbody2D rb2 = Bullet2.GetComponent<Rigidbody2D>();
+        rb2.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+    }
+
+    void Shoot3()
+    {
+        GameObject Rocket = Instantiate(rocketPrefab, fireTip.position, fireTip.rotation);
+        Rigidbody2D rb3 = Rocket.GetComponent<Rigidbody2D>();
+        rb3.AddForce(fireTip.up * rocketForce, ForceMode2D.Impulse);
     }
 }

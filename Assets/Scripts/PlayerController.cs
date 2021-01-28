@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     Animator anim;
     private PlayerController player;
+    public RocketButton rktButton;
 
     Vector2 movement;
     Vector2 mousePos;
@@ -32,6 +33,9 @@ public class PlayerController : MonoBehaviour
     bool isAlive = true;
 
     public GameObject spawnEffect;
+
+    public bool bullet2Bool;
+    public bool rocketBool;
 
     private void Awake()
     {
@@ -52,8 +56,9 @@ public class PlayerController : MonoBehaviour
         startPosition = this.transform.position;
 
         Invoke("Shake", 0.71f);
-        Invoke("Spawn", 0.73f);
+        Invoke("Spawn", 0.73f);       
     }   
+    
 
     // Update is called once per frame
     void Update()
@@ -89,6 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+    
 
     public void Spawn()
     {
@@ -142,6 +148,55 @@ public class PlayerController : MonoBehaviour
     {
         
         CinemachineShake.Instance.ShakeCamera(3f, .15f);
+    }   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        LootObjects lootObj = collision.GetComponent<LootObjects>();
+        RocketLoot rocketLoot = collision.GetComponent<RocketLoot>();
+
+        //Bullet2
+        if ((lootObj !=null) && bullet2Bool == false)
+        {
+            rocketBool = false;
+            bullet2Bool = true;
+
+            Invoke("False", 10f);
+        }
+
+        else if((lootObj !=null) && bullet2Bool == true)
+        {
+
+            CancelInvoke("False");
+
+            Invoke("False", 10f);
+        }
+
+        //Rocket
+        if((rocketLoot !=null) && rocketBool == false)
+        {
+            rktButton.RocketButtonOn();
+        }
+
+       
+
     }
 
+    public void RocketOn()
+    {
+        bullet2Bool = false;
+        rocketBool = true;
+
+        Invoke("False2", 10f);
+    }
+
+    void False()
+    {
+        bullet2Bool = false;
+    }
+
+    void False2()
+    {
+        rocketBool = false;
+    }
 }

@@ -22,9 +22,7 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeBtwnSpawns = startTimeBtwnSpawns;
-
-        
+        timeBtwnSpawns = startTimeBtwnSpawns;       
     }
 
     // Update is called once per frame

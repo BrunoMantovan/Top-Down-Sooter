@@ -26,7 +26,11 @@ public class Enemy : MonoBehaviour
     public int enemyDamage = 5;
 
     public GameObject dieEffect;
-    
+
+    public GameObject[] loots;
+
+    int randomLoot;
+
 
     private void Awake()
     {
@@ -120,9 +124,16 @@ public class Enemy : MonoBehaviour
         health -= bulletDamage;
         if (health <= 0)
         {
+            SpawnLoot();
             
             Die();            
         }
+    }
+
+    public void SpawnLoot()
+    {
+        randomLoot = Random.Range(0, loots.Length);
+        Instantiate(loots[randomLoot], transform.position, Quaternion.identity);
     }
 
     public void Die()

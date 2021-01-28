@@ -7,7 +7,10 @@ public class ChangeScenes : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        PlayerController player = collision.GetComponent<PlayerController>();
 
+        if(player != null) { 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
     }
 }
