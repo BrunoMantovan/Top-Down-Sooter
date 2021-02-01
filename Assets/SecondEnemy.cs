@@ -1,0 +1,102 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SecondEnemy : MonoBehaviour
+{
+    public float speed;
+    public float stopDistance;
+    public float reatreatDistance;
+
+    public Transform fireTip;
+
+    public Rigidbody2D rb;
+
+    public Transform playerPos;
+
+    public GameObject projectile;
+
+    private float timeBtwShots;
+    public float fireRate;
+
+    Animator anim;
+    const string stateMoving = "isMoving";
+
+    public int health = 50;
+
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+
+    }
+    void Start()
+    {
+        anim.SetBool(stateMoving, false);
+
+        rb = this.GetComponent<Rigidbody2D>();
+
+        playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Vector2.Distance(transform.position, playerPos.position) > stopDistance)
+        {
+
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
+            anim.SetBool(stateMoving, true);
+
+        }
+
+        else if (Vector2.Distance(transform.position, playerPos.position) < stopDistance && Vector2.Distance(transform.position, playerPos.position) > reatreatDistance)
+        {
+            transform.position = this.transform.position;
+
+            anim.SetBool(stateMoving, false);
+
+        }
+
+        else if (Vector2.Distance(transform.position, playerPos.position) < reatreatDistance)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, playerPos.position, -speed * Time.deltaTime);
+            anim.SetBool(stateMoving, true);
+
+        }
+
+
+        if (timeBtwShots <= 0)
+        {
+            Instantiate(projectile, fireTip.position, fireTip.rotation);
+            timeBtwShots = fireRate;
+        }
+        else
+        {
+            timeBtwShots -= Time.deltaTime;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Vector2 lookDir = playerPos.position - transform.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90;
+        rb.rotation = angle;
+    }
+
+
+    public void TakeDamage(int bulletDamage)
+    {
+        health -= bulletDamage;
+        if (health <= 0)
+        {
+            
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+}

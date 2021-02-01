@@ -156,9 +156,9 @@ public class PlayerController : MonoBehaviour
         RocketLoot rocketLoot = collision.GetComponent<RocketLoot>();
 
         //Bullet2
-        if ((lootObj !=null) && bullet2Bool == false)
+        if ((lootObj !=null) && (bullet2Bool == false) && rocketBool == false)
         {
-            rocketBool = false;
+            
             bullet2Bool = true;
 
             Invoke("False", 10f);

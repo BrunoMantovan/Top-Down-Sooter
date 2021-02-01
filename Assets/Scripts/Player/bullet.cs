@@ -13,16 +13,24 @@ public class bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
-        if(enemy != null)
+        SecondEnemy secondEnemy = collision.GetComponent<SecondEnemy>();
+
+
+        if (enemy != null)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 0.3f);
             enemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
-        
 
-        if(collision.gameObject.tag == "bulletCol")
+        if (secondEnemy != null)
+        {
+            secondEnemy.TakeDamage(bulletDamage);
+        }
+
+
+        if (collision.gameObject.tag == "bulletCol")
         {
             Destroy(gameObject);
             
