@@ -21,8 +21,6 @@ public class Enemy : MonoBehaviour
     private bool cooling;
     private float intTimer;
 
-    public GameController GameController;
-
     public int enemyDamage = 5;
 
     public GameObject dieEffect;
@@ -41,23 +39,18 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim.SetBool(stateAttacking, false);
-        
-
+        anim.SetBool(stateAttacking, false);       
 
         rb = this.GetComponent<Rigidbody2D>();
 
         playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
-
-        
+        transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);        
     }
 
     private void FixedUpdate()
@@ -141,7 +134,7 @@ public class Enemy : MonoBehaviour
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1.3f);
 
-        GameController.EnemyHasDied();
+        FindObjectOfType<GameController>().EnemyHasDied();
 
         Destroy(gameObject);
     }

@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1939816604
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939816605}
+  - component: {fileID: 1939816606}
+  - component: {fileID: 1117805862480629882}
+  m_Layer: 0
+  m_Name: melee
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1939816605
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939816604}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4029724455802515299}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &1939816606
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939816604}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
+--- !u!114 &1117805862480629882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939816604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7adf818360ee024b92897b4004d9270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeDamage: 100
 --- !u!1 &4029724455280557901
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,6 +125,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4029724455280557898}
+  - {fileID: 1939816605}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -173,7 +235,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6061677
+  m_Radius: 0.6
 --- !u!114 &4029724455802515296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,11 +251,14 @@ MonoBehaviour:
   rb: {fileID: 4029724455802515301}
   cam: {fileID: 0}
   moveSpeed: 10
+  rktButton: {fileID: 0}
   joystick: {fileID: 0}
   shootJoystick: {fileID: 0}
-  playerHealth: 30
+  playerHealth: 100
   dieEffect: {fileID: 2643295188092996593, guid: b3220575b0e15a144aa684ac8ab2413c, type: 3}
   spawnEffect: {fileID: 149216692986249862, guid: adfc703c78f86394892f456e623bbf6a, type: 3}
+  bullet2Bool: 0
+  rocketBool: 0
 --- !u!114 &4029724455802515310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +273,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireTip: {fileID: 4029724455280557898}
   bulletPrefab: {fileID: 8510372308388456095, guid: bab34c03c9fa05049a591c3fb0650565, type: 3}
+  bulletPrefab2: {fileID: 6896225019047475755, guid: 8cee345e1756c064886fcf5350024e99, type: 3}
+  rocketPrefab: {fileID: 7266053143950319593, guid: c04236439be8f404abcf26d403872b19, type: 3}
   bulletForce: 20
+  rocketForce: 20
   fireRate: 0.15
+  bullet2FireRate: 1
+  rocketFireRate: 1
   shootJoystick: {fileID: 0}
+  playerCont: {fileID: 4029724455802515296}

@@ -15,6 +15,7 @@ public class SecondEnemy : MonoBehaviour
     public Transform playerPos;
 
     public GameObject projectile;
+    public GameObject dieEffect;
 
     private float timeBtwShots;
     public float fireRate;
@@ -24,6 +25,10 @@ public class SecondEnemy : MonoBehaviour
 
     public int health = 50;
 
+    public GameObject[] loots;
+
+    int randomLoot;
+
 
     private void Awake()
     {
@@ -32,6 +37,8 @@ public class SecondEnemy : MonoBehaviour
     }
     void Start()
     {
+        
+
         anim.SetBool(stateMoving, false);
 
         rb = this.GetComponent<Rigidbody2D>();
@@ -56,6 +63,16 @@ public class SecondEnemy : MonoBehaviour
 
             anim.SetBool(stateMoving, false);
 
+            if (timeBtwShots <= 0)
+            {
+                Instantiate(projectile, fireTip.position, fireTip.rotation);
+                timeBtwShots = fireRate;
+            }
+            else
+            {
+                timeBtwShots -= Time.deltaTime;
+            }
+
         }
 
         else if (Vector2.Distance(transform.position, playerPos.position) < reatreatDistance)
@@ -63,18 +80,19 @@ public class SecondEnemy : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, -speed * Time.deltaTime);
             anim.SetBool(stateMoving, true);
 
+            if (timeBtwShots <= 0)
+            {
+                Instantiate(projectile, fireTip.position, fireTip.rotation);
+                timeBtwShots = fireRate;
+            }
+            else
+            {
+                timeBtwShots -= Time.deltaTime;
+            }
         }
 
 
-        if (timeBtwShots <= 0)
-        {
-            Instantiate(projectile, fireTip.position, fireTip.rotation);
-            timeBtwShots = fireRate;
-        }
-        else
-        {
-            timeBtwShots -= Time.deltaTime;
-        }
+       
     }
 
     private void FixedUpdate()
@@ -90,13 +108,26 @@ public class SecondEnemy : MonoBehaviour
         health -= bulletDamage;
         if (health <= 0)
         {
-            
+            SpawnLoot();
+
             Die();
         }
     }
 
+    public void SpawnLoot()
+    {
+        randomLoot = Random.Range(0, loots.Length);
+        Instantiate(loots[randomLoot], transform.position, Quaternion.identity);
+    }
+
     public void Die()
     {
+
+        GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 1.3f);
+
+        FindObjectOfType<GameController>().EnemyHasDied();
+
         Destroy(gameObject);
     }
 }

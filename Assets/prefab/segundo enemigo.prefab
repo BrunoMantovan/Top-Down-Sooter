@@ -145,9 +145,21 @@ MonoBehaviour:
   fireTip: {fileID: 5038923717238188315}
   rb: {fileID: 5038923715862379721}
   playerPos: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
-  projectile: {fileID: 1451718557326698799, guid: 28248e4a2d271b34f83db6b12842cbc7, type: 3}
+  projectile: {fileID: 425980471017796033, guid: c1e00aa3cbff15745b4a0b552e015b02, type: 3}
+  dieEffect: {fileID: 6105846443513957714, guid: 68d0ab1adcd587b41858ede8a7658b05, type: 3}
   fireRate: 2
   health: 50
+  loots:
+  - {fileID: 6037795803492788757, guid: ff0a4766435df894db4a73a7f170d2a7, type: 3}
+  - {fileID: 6037795803492788757, guid: ff0a4766435df894db4a73a7f170d2a7, type: 3}
+  - {fileID: 42024712629330302, guid: 5e4c8b3f8d280854d91b0a2d0e511bfb, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
 --- !u!58 &6612064502595957027
 CircleCollider2D:
   m_ObjectHideFlags: 0

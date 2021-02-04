@@ -26,7 +26,10 @@ public class bullet : MonoBehaviour
 
         if (secondEnemy != null)
         {
+            GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 0.3f);
             secondEnemy.TakeDamage(bulletDamage);
+            Destroy(gameObject);
         }
 
 

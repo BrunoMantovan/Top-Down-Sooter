@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  playerPos: {fileID: 0}
+  playerPos: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
   rb: {fileID: 4238806346540749694}
   timer: 0
   health: 100
@@ -109,10 +109,15 @@ MonoBehaviour:
   dieEffect: {fileID: 4096907326899823429, guid: a29bf4bf35f9f3b4ba93b5001225b580, type: 3}
   loots:
   - {fileID: 42024712629330302, guid: 5e4c8b3f8d280854d91b0a2d0e511bfb, type: 3}
-  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 42024712629330302, guid: 5e4c8b3f8d280854d91b0a2d0e511bfb, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 6037795803492788757, guid: ff0a4766435df894db4a73a7f170d2a7, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
 --- !u!58 &5275479507761747893
 CircleCollider2D:
   m_ObjectHideFlags: 0

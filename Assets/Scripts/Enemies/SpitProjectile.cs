@@ -11,6 +11,8 @@ public class SpitProjectile : MonoBehaviour
 
     public int projectileDamage = 10;
 
+    public GameObject acidImpact;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,9 @@ public class SpitProjectile : MonoBehaviour
 
         if(transform.position.x == target.x && transform.position.y == target.y)
         {
+            GameObject impact = Instantiate(acidImpact, transform.position, Quaternion.identity);
+            Destroy(impact, 0.61f);
+
             Destroy(gameObject);
         }
     }
@@ -34,6 +39,9 @@ public class SpitProjectile : MonoBehaviour
         PlayerController player = collision.GetComponent<PlayerController>();
         if(player != null)
         {
+            GameObject impact = Instantiate(acidImpact, transform.position, Quaternion.identity);
+            Destroy(impact, 0.61f);
+
             player.TakeDamage(projectileDamage);
             Destroy(gameObject);
         }

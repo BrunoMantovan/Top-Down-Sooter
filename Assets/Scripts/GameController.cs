@@ -8,17 +8,19 @@ public class GameController : MonoBehaviour
     private int deadEnemies = 0;
 
     public OpenDorr OP;
+
+    public int totalDeadEnemies = 10;
     
 
     public void EnemyHasDied()
     {
         deadEnemies += 1;
 
-        if(deadEnemies == 10)
+        if(deadEnemies == totalDeadEnemies)
         {
             OP.OpenDoor();
 
-            Debug.Log("hola");
+            Debug.Log("completado");
         }
     }
 

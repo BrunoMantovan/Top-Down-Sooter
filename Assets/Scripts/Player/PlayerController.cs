@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     const string stateShooting = "Shooting";
     const string stateMoving = "Moving";
+    const string stateMelee = "Melee";
 
     Animator anim;
     private PlayerController player;
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
         anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
+        anim.SetBool(stateMelee, false);
 
         startPosition = this.transform.position;
 
@@ -140,7 +142,6 @@ public class PlayerController : MonoBehaviour
     {
         FindObjectOfType<GameManager>().DeathTrigger();
 
-
         Destroy(gameObject);
     }
 
@@ -177,9 +178,6 @@ public class PlayerController : MonoBehaviour
         {
             rktButton.RocketButtonOn();
         }
-
-       
-
     }
 
     public void RocketOn()
@@ -198,5 +196,17 @@ public class PlayerController : MonoBehaviour
     void False2()
     {
         rocketBool = false;
+    }
+
+    public void meleeOn()
+    {
+        anim.SetBool(stateMelee, true);
+
+        Invoke("meleeOff", 0.31f);
+    }
+
+    public void meleeOff()
+    {
+        anim.SetBool(stateMelee, false);
     }
 }
