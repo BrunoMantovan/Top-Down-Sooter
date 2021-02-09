@@ -6,9 +6,8 @@ public class bullet : MonoBehaviour
 {
     public GameObject hitEffect;
 
-    public int bulletDamage = 50; 
+    public int bulletDamage = 50;
 
-   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -35,8 +34,7 @@ public class bullet : MonoBehaviour
 
         if (collision.gameObject.tag == "bulletCol")
         {
-            Destroy(gameObject);
-            
+            Destroy(gameObject);            
         }
     }
 }

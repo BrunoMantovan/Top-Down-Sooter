@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class SpawnTxt : MonoBehaviour
 {
     public Canvas startMessage;
+    public float startTime;
+    public float endTime;
 
     private void Awake()
     {
@@ -14,9 +16,9 @@ public class SpawnTxt : MonoBehaviour
 
     void Start()
     {
-        Invoke("StartTxt", 0.70f);
+        Invoke("StartTxt", startTime);
 
-        Invoke("EndTxt", 7.70f);
+        Invoke("EndTxt", endTime);
     }
 
     void StartTxt()

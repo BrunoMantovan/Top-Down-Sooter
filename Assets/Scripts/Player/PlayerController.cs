@@ -41,24 +41,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
-        gameObject.GetComponent<Renderer>().enabled = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
-        Destroy(spawnEff, 0.73f);
-
         anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
         anim.SetBool(stateMelee, false);
 
-        startPosition = this.transform.position;
-
-        Invoke("Shake", 0.71f);
-        Invoke("Spawn", 0.73f);       
+        startPosition = this.transform.position;     
     }   
     
 
@@ -100,7 +92,23 @@ public class PlayerController : MonoBehaviour
 
     public void Spawn()
     {
-        gameObject.GetComponent<Renderer>().enabled = true;        
+        gameObject.GetComponent<Renderer>().enabled = false;
+
+        GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
+        Destroy(spawnEff, 0.73f);
+
+        Invoke("Shake", 0.71f);
+        Invoke("EndSpawn", 0.73f);
+    }
+
+    void Shake()
+    {
+        CinemachineShake.Instance.ShakeCamera(3f, .15f);
+    }
+
+    public void EndSpawn()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
     }
 
     bool Shooting()
@@ -145,11 +153,7 @@ public class PlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void Shake()
-    {
-        
-        CinemachineShake.Instance.ShakeCamera(3f, .15f);
-    }   
+   
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

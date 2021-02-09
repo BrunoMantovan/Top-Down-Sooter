@@ -10,9 +10,7 @@ public class Spawner : MonoBehaviour
     public float startTimeBtwnSpawns;
 
     public int maxEnemies = 10;
-    int enemyCounter = 0;
-
-    public float spawnDelay = 4f;    
+    int enemyCounter = 0; 
 
     void Awake()
     {
@@ -38,9 +36,7 @@ public class Spawner : MonoBehaviour
         else
         {
             timeBtwnSpawns -= Time.deltaTime;
-        }
-
-        
+        }        
     }
     
    

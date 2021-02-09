@@ -42,6 +42,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: black
+    uniqueID: 422886381
+    locked: 0
   - name: floor
     uniqueID: 4220667675
     locked: 0

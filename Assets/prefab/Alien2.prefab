@@ -99,12 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4457a6c7014c2e44b4139abff6b0025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 7
   playerPos: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
   rb: {fileID: 4238806346540749694}
   timer: 0
   health: 100
-  GameController: {fileID: 0}
   enemyDamage: 5
   dieEffect: {fileID: 4096907326899823429, guid: a29bf4bf35f9f3b4ba93b5001225b580, type: 3}
   loots:

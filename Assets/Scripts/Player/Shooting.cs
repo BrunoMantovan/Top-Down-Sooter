@@ -9,7 +9,8 @@ public class Shooting : MonoBehaviour
     public GameObject bulletPrefab2;
     public GameObject rocketPrefab;
 
-    public float bulletForce = 20f; //Velocidad de la bala
+    public float bulletForce = 20f;
+    public float bullet2Force = 15f;
     public float rocketForce = 20f;
 
     public float fireRate = 1f;
@@ -20,7 +21,8 @@ public class Shooting : MonoBehaviour
     public Joystick shootJoystick;
 
     public PlayerController playerCont;
-    
+
+
     // Update is called once per frame
     void Update()
     {
