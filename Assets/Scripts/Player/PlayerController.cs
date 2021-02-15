@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     const string stateShooting = "Shooting";
     const string stateMoving = "Moving";
     const string stateMelee = "Melee";
+    const string stateDisabled = "isDisabled";
 
     Animator anim;
     private PlayerController player;
@@ -25,7 +27,9 @@ public class PlayerController : MonoBehaviour
 
     public Joystick shootJoystick;
 
-    public int playerHealth = 100;
+    public int initialHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
 
     public GameObject dieEffect;
 
@@ -38,6 +42,16 @@ public class PlayerController : MonoBehaviour
     public bool bullet2Bool;
     public bool rocketBool;
 
+
+    public int lifes;
+    public int NumberOfIcons;
+
+    public Image[] icons;
+    public Sprite fullIcon;
+    public Sprite emptyIcon;
+
+    public float disabledTime;
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -46,9 +60,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = initialHealth;
+
+        healthBar.SetMaxHealth(initialHealth);
+
         anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
         anim.SetBool(stateMelee, false);
+        anim.SetBool(stateDisabled, false);
 
         startPosition = this.transform.position;     
     }   
@@ -57,6 +76,33 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (lifes > NumberOfIcons)
+        {
+            lifes = NumberOfIcons;
+        }
+
+        for (int i = 0; i < icons.Length; i++)
+        {
+            if (i < lifes)
+            {
+                icons[i].sprite = fullIcon;
+            }
+            else
+            {
+                icons[i].sprite = emptyIcon;
+            }
+
+            if (i < NumberOfIcons)
+            {
+                icons[i].enabled = true;
+            }
+            else
+            {
+                icons[i].enabled = false;
+            }
+        }
+
+
         movement.x = joystick.Horizontal;
         movement.y = joystick.Vertical;
 
@@ -125,11 +171,44 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int enemyDamage)
     {
-        playerHealth -= enemyDamage;
-        if (playerHealth <= 0)
+        currentHealth -= enemyDamage;
+
+        healthBar.SetHealth(currentHealth);
+
+        if(currentHealth <= 0)
         {
-            Die();
+            if (lifes > 1)
+            {
+                currentHealth = initialHealth;
+                healthBar.SetHealth(currentHealth);
+
+                GetComponent<CircleCollider2D>().enabled = false;
+                anim.SetBool(stateDisabled, true);
+
+                StartCoroutine(ReactivateCollider(disabledTime)); 
+
+                lifesDecrease();
+            }
+            else if(lifes <= 1)
+            {
+                lifesDecrease();
+
+                Die();
+            }
         }
+         
+    }
+
+    IEnumerator ReactivateCollider(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        GetComponent<CircleCollider2D>().enabled = true;
+        anim.SetBool(stateDisabled, false);
+    }
+
+    public void lifesDecrease()
+    {
+        lifes--;
     }
 
     public void Die()

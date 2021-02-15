@@ -32,6 +32,9 @@ public class Shooting : MonoBehaviour
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
+
+                FindObjectOfType<AudioManager>().Play("shoot");
+
                 Shoot();
             }
         }
@@ -42,6 +45,9 @@ public class Shooting : MonoBehaviour
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
+
+                FindObjectOfType<AudioManager>().Play("shoot2");
+
                 Shoot2();
             }
         }
@@ -60,6 +66,7 @@ public class Shooting : MonoBehaviour
     
     void Shoot()
     {
+
         GameObject Bullet = Instantiate(bulletPrefab, fireTip.position, fireTip.rotation);
         Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);

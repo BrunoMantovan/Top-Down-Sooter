@@ -254,11 +254,22 @@ MonoBehaviour:
   rktButton: {fileID: 0}
   joystick: {fileID: 0}
   shootJoystick: {fileID: 0}
-  playerHealth: 100
+  initialHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 0}
   dieEffect: {fileID: 2643295188092996593, guid: b3220575b0e15a144aa684ac8ab2413c, type: 3}
   spawnEffect: {fileID: 149216692986249862, guid: adfc703c78f86394892f456e623bbf6a, type: 3}
   bullet2Bool: 0
   rocketBool: 0
+  lifes: 3
+  NumberOfIcons: 3
+  icons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  fullIcon: {fileID: 21300000, guid: a7de9fadb9e65b6448636365b558a721, type: 3}
+  emptyIcon: {fileID: 21300000, guid: 4ce3e22bd70146649aa938c38860eff9, type: 3}
+  disabledTime: 1.5
 --- !u!114 &4029724455802515310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +287,7 @@ MonoBehaviour:
   bulletPrefab2: {fileID: 6896225019047475755, guid: 8cee345e1756c064886fcf5350024e99, type: 3}
   rocketPrefab: {fileID: 7266053143950319593, guid: c04236439be8f404abcf26d403872b19, type: 3}
   bulletForce: 20
+  bullet2Force: 15
   rocketForce: 20
   fireRate: 0.15
   bullet2FireRate: 1

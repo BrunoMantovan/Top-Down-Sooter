@@ -28,17 +28,15 @@ public class SecondEnemy : MonoBehaviour
     public GameObject[] loots;
 
     int randomLoot;
+    public int scoreValue;
 
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
-
     }
     void Start()
     {
-        
-
         anim.SetBool(stateMoving, false);
 
         rb = this.GetComponent<Rigidbody2D>();
@@ -54,7 +52,6 @@ public class SecondEnemy : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, speed * Time.deltaTime);
             anim.SetBool(stateMoving, true);
-
         }
 
         else if (Vector2.Distance(transform.position, playerPos.position) < stopDistance && Vector2.Distance(transform.position, playerPos.position) > reatreatDistance)
@@ -72,7 +69,6 @@ public class SecondEnemy : MonoBehaviour
             {
                 timeBtwShots -= Time.deltaTime;
             }
-
         }
 
         else if (Vector2.Distance(transform.position, playerPos.position) < reatreatDistance)
@@ -89,10 +85,7 @@ public class SecondEnemy : MonoBehaviour
             {
                 timeBtwShots -= Time.deltaTime;
             }
-        }
-
-
-       
+        }       
     }
 
     private void FixedUpdate()
@@ -125,6 +118,8 @@ public class SecondEnemy : MonoBehaviour
 
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1.3f);
+
+        Score.scoreAmount += scoreValue;
 
         FindObjectOfType<GameController>().EnemyHasDied();
 

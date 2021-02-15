@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
+  scoreValue: 20
 --- !u!58 &6612064502595957027
 CircleCollider2D:
   m_ObjectHideFlags: 0

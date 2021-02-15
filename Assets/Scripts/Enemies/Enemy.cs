@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public float speed;
+    public float speedContinue;
     public Transform playerPos;
 
     public Rigidbody2D rb;
@@ -29,6 +30,7 @@ public class Enemy : MonoBehaviour
 
     int randomLoot;
 
+    public int scoreValue;
 
     private void Awake()
     {
@@ -86,7 +88,7 @@ public class Enemy : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             rb.constraints = RigidbodyConstraints2D.None;
-            speed = 5;
+            speed = speedContinue;
 
             anim.SetBool(stateAttacking, false);
         }
@@ -133,6 +135,8 @@ public class Enemy : MonoBehaviour
     {
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1.3f);
+
+        Score.scoreAmount += scoreValue;
 
         FindObjectOfType<GameController>().EnemyHasDied();
 
