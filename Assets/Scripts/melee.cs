@@ -15,10 +15,21 @@ public class melee : MonoBehaviour
     {
         Enemy enemy = collision.GetComponent<Enemy>();
         SecondEnemy secondEnemy = collision.GetComponent<SecondEnemy>();
+        ThirdEnemy thirdEnemy = collision.GetComponent<ThirdEnemy>();
 
         if(enemy != null)
         {
             enemy.TakeDamage(meleeDamage);
+        }
+
+        if(secondEnemy != null)
+        {
+            secondEnemy.TakeDamage(meleeDamage);
+        }
+
+        if(thirdEnemy != null)
+        {
+            thirdEnemy.TakeDamage(meleeDamage);
         }
     }
 

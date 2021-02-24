@@ -19,6 +19,7 @@ public class Rocket : MonoBehaviour
     {
         Enemy enemy = collision.GetComponent<Enemy>();
         SecondEnemy secondEnemy = collision.GetComponent<SecondEnemy>();
+        ThirdEnemy thirdEnemy = collision.GetComponent<ThirdEnemy>();
 
 
         if (enemy !=null)
@@ -30,6 +31,13 @@ public class Rocket : MonoBehaviour
         if (secondEnemy != null)
         {
             secondEnemy.TakeDamage(rocketDamage);
+            EndRcoket();
+        }
+
+        if(thirdEnemy != null)
+        {
+            thirdEnemy.TakeDamage(rocketDamage);
+            EndRcoket();
         }
     }
 

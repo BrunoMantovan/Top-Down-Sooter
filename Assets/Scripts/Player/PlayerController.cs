@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
 
     void Shake()
     {
+        Handheld.Vibrate();
         CinemachineShake.Instance.ShakeCamera(3f, .15f);
     }
 
@@ -221,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
             gameObject.GetComponent<Renderer>().enabled = false;
 
+            Handheld.Vibrate();
             Invoke("CallDeathMenu", 1.2f);
         }
     }

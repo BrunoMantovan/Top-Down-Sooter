@@ -13,6 +13,7 @@ public class bullet : MonoBehaviour
     {
         Enemy enemy = collision.GetComponent<Enemy>();
         SecondEnemy secondEnemy = collision.GetComponent<SecondEnemy>();
+        ThirdEnemy thirdEnemy = collision.GetComponent<ThirdEnemy>();
 
 
         if (enemy != null)
@@ -28,6 +29,14 @@ public class bullet : MonoBehaviour
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
             Destroy(effect, 0.3f);
             secondEnemy.TakeDamage(bulletDamage);
+            Destroy(gameObject);
+        }
+
+        if(thirdEnemy != null)
+        {
+            GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 0.3f);
+            thirdEnemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
 

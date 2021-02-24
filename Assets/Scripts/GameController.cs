@@ -8,6 +8,10 @@ public class GameController : MonoBehaviour
     private int deadEnemies = 0;
 
     public OpenDorr OP;
+    public OpenDorr OP2;
+    public OpenDorr OP3;
+
+    public GameObject leaveMsg;
 
     public int totalDeadEnemies = 10;
     
@@ -19,6 +23,10 @@ public class GameController : MonoBehaviour
         if(deadEnemies == totalDeadEnemies)
         {
             OP.OpenDoor();
+            OP2.OpenDoor();
+            OP3.OpenDoor();
+
+            leaveMsg.SetActive(true);
 
             Debug.Log("completado");
         }

@@ -131,7 +131,7 @@ public class ThirdEnemy : MonoBehaviour
         health -= bulletDamage;
         if (health <= 0)
         {
-            SpawnLoot();
+            //SpawnLoot();
 
             Die();
         }

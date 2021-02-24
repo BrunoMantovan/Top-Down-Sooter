@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class OpenDorr : MonoBehaviour
 {
+    public Vector3 moveDistance;
    
     public void OpenDoor()
     {
-        this.transform.position += new Vector3(8, 0, 0);
+        this.transform.position += moveDistance;
     }
 
 
