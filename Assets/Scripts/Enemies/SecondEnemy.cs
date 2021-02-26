@@ -99,6 +99,9 @@ public class SecondEnemy : MonoBehaviour
     public void TakeDamage(int bulletDamage)
     {
         health -= bulletDamage;
+
+        Score.scoreAmount += 10;
+
         if (health <= 0)
         {
             SpawnLoot();

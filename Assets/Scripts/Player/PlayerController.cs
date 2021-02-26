@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
 
+    public Canvas joystickCanvas;
+
     public Rigidbody2D rb;
     public Camera cam;
 
@@ -196,8 +198,17 @@ public class PlayerController : MonoBehaviour
 
                 Die();
             }
-        }
-         
+        }         
+    }
+
+    public void explosionHit()
+    {
+        GetComponent<CircleCollider2D>().enabled = false;
+        anim.SetBool(stateDisabled, true);
+
+        StartCoroutine(ReactivateCollider(disabledTime));
+
+        lifesDecrease();
     }
 
     IEnumerator ReactivateCollider(float waitTime)
@@ -207,9 +218,43 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(stateDisabled, false);
     }
 
+    public void extraLife()
+    {
+        FindObjectOfType<GameManager>().StartGame();
+
+        
+
+        currentHealth = initialHealth;
+        healthBar.SetHealth(currentHealth);
+
+        lifes++;
+
+        gameObject.GetComponent<Renderer>().enabled = true;
+
+        GetComponent<CircleCollider2D>().enabled = false;
+        anim.SetBool(stateDisabled, true);
+
+        isAlive = true;
+
+        joystickCanvas.enabled = true;
+
+        StartCoroutine(ReactivateCollider(disabledTime));
+    }
+
     public void lifesDecrease()
     {
+
         lifes--;
+
+        if(lifes == 0)
+        {
+            Die();
+        }
+
+        if (lifes < 0)
+        {
+            lifes = 0;
+        }
     }
 
     public void Die()
@@ -219,19 +264,18 @@ public class PlayerController : MonoBehaviour
             isAlive = false; 
 
             GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 1.11f);
 
             gameObject.GetComponent<Renderer>().enabled = false;
 
             Handheld.Vibrate();
-            Invoke("CallDeathMenu", 1.2f);
+            Invoke("CallDeathMenu", 1.1f);
         }
     }
 
     public void CallDeathMenu()
     {
         FindObjectOfType<GameManager>().DeathTrigger();
-
-        Destroy(gameObject);
     }
 
    

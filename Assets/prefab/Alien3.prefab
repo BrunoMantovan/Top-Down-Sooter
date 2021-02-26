@@ -131,9 +131,9 @@ MonoBehaviour:
   maxY: 15
   enemy3: {fileID: 3268109000608269824}
   rb: {fileID: 5434775523641706371}
-  health: 40
+  health: 50
   loots: []
-  scoreValue: 20
+  scoreValue: 75
   dieEffect: {fileID: 6074566662786905054, guid: 8976808a4c0e70d449b66a3c2458edbe, type: 3}
 --- !u!58 &3714370841529043892
 CircleCollider2D:

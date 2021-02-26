@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4457a6c7014c2e44b4139abff6b0025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
-  speedContinue: 7
+  speed: 5
+  speedContinue: 5
   playerPos: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
   rb: {fileID: 4238806346540749694}
   timer: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
-  scoreValue: 10
+  scoreValue: 50
 --- !u!58 &5275479507761747893
 CircleCollider2D:
   m_ObjectHideFlags: 0

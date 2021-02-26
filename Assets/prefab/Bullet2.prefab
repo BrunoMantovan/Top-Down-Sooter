@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 2361245713327064523, guid: 586c809b3b067e746b76e4eea152aeaf, type: 3}
-  bulletDamage: 20
+  bulletDamage: 25
 --- !u!70 &7109568163570556497
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

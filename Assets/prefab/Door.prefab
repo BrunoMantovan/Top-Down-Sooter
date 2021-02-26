@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8385634657350513680}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: bulletCol
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,7 +50,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 2.3920927, y: 7.7205772}
+  m_Offset: {x: 2.3920927, y: 5.9499626}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -61,7 +61,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1379309, y: 16.441154}
+  m_Size: {x: 2.1379309, y: 19.982384}
   m_EdgeRadius: 0
 --- !u!61 &8385634657350513680
 BoxCollider2D:
@@ -76,7 +76,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -3.4333138, y: 7.7977047}
+  m_Offset: {x: -3.4333138, y: 5.9699736}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -87,7 +87,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.528202, y: 16.59541}
+  m_Size: {x: 1.528202, y: 20.250872}
   m_EdgeRadius: 0
 --- !u!1 &4275802619948170336
 GameObject:
@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a8102cff99a2a34f84d7723702c90bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDistance: {x: 8, y: 0, z: 0}
 --- !u!251 &174658711164110420
 PlatformEffector2D:
   m_ObjectHideFlags: 0

@@ -98,7 +98,7 @@ public class ThirdEnemy : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
             attackSpeed = 0;
-            Die();
+            ImpactDie();
         }
 
         if (collision.gameObject.tag == "Bullet")
@@ -129,6 +129,9 @@ public class ThirdEnemy : MonoBehaviour
     public void TakeDamage(int bulletDamage)
     {
         health -= bulletDamage;
+
+        Score.scoreAmount += 10;
+
         if (health <= 0)
         {
             //SpawnLoot();
@@ -149,6 +152,16 @@ public class ThirdEnemy : MonoBehaviour
         Destroy(effect, 0.583f);
 
         Score.scoreAmount += scoreValue;
+
+        FindObjectOfType<GameController>().EnemyHasDied();
+
+        Destroy(gameObject);
+    }
+
+    public void ImpactDie()
+    {
+        GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 0.583f);
 
         FindObjectOfType<GameController>().EnemyHasDied();
 

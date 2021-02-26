@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7172dbfef06ad954ea7e584255e113b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joystickCanvas: {fileID: 0}
   rb: {fileID: 4029724455802515301}
   cam: {fileID: 0}
   moveSpeed: 10

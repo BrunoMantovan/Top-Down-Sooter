@@ -148,7 +148,7 @@ MonoBehaviour:
   projectile: {fileID: 425980471017796033, guid: c1e00aa3cbff15745b4a0b552e015b02, type: 3}
   dieEffect: {fileID: 6105846443513957714, guid: 68d0ab1adcd587b41858ede8a7658b05, type: 3}
   fireRate: 2
-  health: 50
+  health: 75
   loots:
   - {fileID: 6037795803492788757, guid: ff0a4766435df894db4a73a7f170d2a7, type: 3}
   - {fileID: 6037795803492788757, guid: ff0a4766435df894db4a73a7f170d2a7, type: 3}
@@ -160,7 +160,7 @@ MonoBehaviour:
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
   - {fileID: 8455471532159979738, guid: 35f6f5fa63cb99f41afbe58ce56c6e81, type: 3}
-  scoreValue: 20
+  scoreValue: 25
 --- !u!58 &6612064502595957027
 CircleCollider2D:
   m_ObjectHideFlags: 0
