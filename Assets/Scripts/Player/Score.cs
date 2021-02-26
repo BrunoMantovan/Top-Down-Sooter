@@ -9,7 +9,6 @@ public class Score : MonoBehaviour
     Text scoreText;
     public static int scoreAmount;
 
-    // Start is called before the first frame update
     void Start()
     {
         scoreText = GetComponent<Text>();
@@ -17,7 +16,6 @@ public class Score : MonoBehaviour
         PlayerPrefs.GetInt("score");
     }
 
-    // Update is called once per frame
     void Update()
     {
         scoreText.text = scoreAmount.ToString();

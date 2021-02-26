@@ -11,6 +11,7 @@ public class PlateExplosion : MonoBehaviour
     {
         Handheld.Vibrate();
         Invoke("EndExplosion", 0.77f);
+        FindObjectOfType<AudioManager>().Play("explosion2");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

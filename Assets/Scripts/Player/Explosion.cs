@@ -11,6 +11,7 @@ public class Explosion : MonoBehaviour
     {
         Handheld.Vibrate();
         Invoke("EndExplosion", 0.71f);
+        FindObjectOfType<AudioManager>().Play("explosion1");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

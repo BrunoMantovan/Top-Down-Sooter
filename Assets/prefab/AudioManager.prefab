@@ -56,3 +56,15 @@ MonoBehaviour:
     pitch: 2
     loop: 0
     source: {fileID: 0}
+  - name: explosion1
+    clip: {fileID: 8300000, guid: bf5de0734a420b943a64acf08270e713, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: explosion2
+    clip: {fileID: 8300000, guid: 94b8c4ecd08d0c94d80fb51af0b87adf, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
