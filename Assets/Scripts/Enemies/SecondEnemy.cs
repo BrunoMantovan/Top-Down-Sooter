@@ -8,6 +8,7 @@ public class SecondEnemy : MonoBehaviour
     public float stopDistance;
     public float reatreatDistance;
 
+    public float spitForce = 20f;
     public Transform fireTip;
 
     public Rigidbody2D rb;
@@ -62,7 +63,9 @@ public class SecondEnemy : MonoBehaviour
 
             if (timeBtwShots <= 0)
             {
-                Instantiate(projectile, fireTip.position, fireTip.rotation);
+                GameObject spit = Instantiate(projectile, fireTip.position, fireTip.rotation);
+                Rigidbody2D rbSpit = spit.GetComponent<Rigidbody2D>();
+                rbSpit.AddForce(fireTip.up * spitForce, ForceMode2D.Impulse);
                 timeBtwShots = fireRate;
             }
             else
@@ -78,7 +81,9 @@ public class SecondEnemy : MonoBehaviour
 
             if (timeBtwShots <= 0)
             {
-                Instantiate(projectile, fireTip.position, fireTip.rotation);
+                GameObject spit = Instantiate(projectile, fireTip.position, fireTip.rotation);
+                Rigidbody2D rbSpit = spit.GetComponent<Rigidbody2D>();
+                rbSpit.AddForce(fireTip.up * spitForce, ForceMode2D.Impulse);
                 timeBtwShots = fireRate;
             }
             else

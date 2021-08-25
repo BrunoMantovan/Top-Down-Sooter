@@ -9,7 +9,7 @@ public class PlateExplosion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Handheld.Vibrate();
+        
         Invoke("EndExplosion", 0.77f);
         FindObjectOfType<AudioManager>().Play("explosion2");
     }

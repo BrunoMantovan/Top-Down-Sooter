@@ -29,7 +29,7 @@ public class Shooting : MonoBehaviour
         //NormalBullet
         if((playerCont.bullet2Bool == false) && playerCont.rocketBool == false)
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
 
@@ -42,7 +42,7 @@ public class Shooting : MonoBehaviour
         //Bullet2
         if (playerCont.bullet2Bool == true)
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
 
@@ -55,7 +55,7 @@ public class Shooting : MonoBehaviour
         //Rocket
         if(playerCont.rocketBool == true)
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && Time.time > nextFire)
+            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
                 nextFire = Time.time + rocketFireRate;
                 Shoot3();

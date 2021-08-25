@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1179417290864787701}
   - component: {fileID: 8197521623049490103}
   - component: {fileID: 4414535813213773595}
+  - component: {fileID: 8145429450576313543}
   m_Layer: 0
   m_Name: Acid
   m_TagString: Untagged
@@ -96,9 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec135dc27ad7b348915633a870bb480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
-  playerPos: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
-  target: {x: 0, y: 0}
   projectileDamage: 10
   acidImpact: {fileID: 8685419663035257748, guid: 5b730448d1e09b74284a0abdf4661b6e, type: 3}
 --- !u!70 &4414535813213773595
@@ -111,9 +109,30 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.033785105}
   m_Size: {x: 0.7063198, y: 1.1245131}
   m_Direction: 0
+--- !u!50 &8145429450576313543
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425980471017796033}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

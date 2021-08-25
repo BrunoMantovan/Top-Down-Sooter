@@ -6,7 +6,7 @@ public class melee : MonoBehaviour
 {
     public int meleeDamage = 100;
 
-    private void Start()
+    public void Start()
     {
         Invoke("FinishMelee", 0.5f);
     }

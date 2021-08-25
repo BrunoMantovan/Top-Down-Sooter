@@ -5,6 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Button meleeButton;
+    public Button rocketButton;
+
+    public GameObject timerCrcl;
+
+    public MeleeButton meleebut;
+
+    public melee meleeScript;
 
     public Canvas joystickCanvas;
 
@@ -25,6 +33,8 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
+    public GameObject meleeObj;
+
     public Joystick joystick;
 
     public Joystick shootJoystick;
@@ -43,7 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public bool bullet2Bool;
     public bool rocketBool;
-
+    public bool meleeBool;
 
     public int lifes;
     public int NumberOfIcons;
@@ -52,7 +62,15 @@ public class PlayerController : MonoBehaviour
     public Sprite fullIcon;
     public Sprite emptyIcon;
 
+    public float meleeTime = 30f;
+
     public float disabledTime;
+
+    public bool rocketShootBool = false;
+
+    public GameObject rocketTimer;
+
+    public Button rocketButInter;
 
     private void Awake()
     {
@@ -71,7 +89,9 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(stateMelee, false);
         anim.SetBool(stateDisabled, false);
 
-        startPosition = this.transform.position;     
+        startPosition = this.transform.position;
+
+        meleeBool = true;
     }   
     
 
@@ -108,21 +128,49 @@ public class PlayerController : MonoBehaviour
         movement.x = joystick.Horizontal;
         movement.y = joystick.Vertical;
 
-        
+        if (Input.GetKey(KeyCode.A))
+        {
+            movement.x = -1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            movement.x = 1;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            movement.y = -1;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            movement.y = 1;
+        }
+
+        Vector3 posMouse = Input.mousePosition;
+        posMouse.z = 0;
+
+        Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
+        posMouse.x = posMouse.x - objectPos.x;
+        posMouse.y = posMouse.y - objectPos.y;
+
+        float angle = Mathf.Atan2(posMouse.y, posMouse.x) * Mathf.Rad2Deg;
+        angle -= 90;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-
         
 
         anim.SetBool(stateShooting, Shooting());
 
+
         Vector3 moveVector = new Vector3(shootJoystick.Horizontal, shootJoystick.Vertical);
+
         if (shootJoystick.Horizontal != 0 || shootJoystick.Vertical != 0)
         {
             transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
         }
 
-        if(joystick.Horizontal !=0 || joystick.Vertical != 0)
+        if(joystick.Horizontal !=0 || joystick.Vertical != 0 || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             anim.SetBool(stateMoving, true);
         }
@@ -130,13 +178,41 @@ public class PlayerController : MonoBehaviour
         {
             anim.SetBool(stateMoving, false);
         }
+
+        if (meleeBool == true && Input.GetKeyDown(KeyCode.V))
+        {
+            meleeObj.SetActive(true);
+            timerCrcl.SetActive(true);
+            meleeScript.GetComponent<melee>().Start();
+            meleeButton.interactable = false;
+            meleebut.GetComponent<MeleeButton>().Timer();
+            meleeOn();
+            meleeBool = false;
+            MeleeTimerOff();
+        }
+
+        if (rocketShootBool == true && Input.GetKeyDown(KeyCode.R))
+        {
+            rocketTimer.SetActive(true);
+            RocketOn();
+            rocketButInter.interactable = false;
+        }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
-    
+
+    public void MeleeTimerOff()
+    {
+        Invoke("MeleeActiveAgain", meleeTime);
+    }
+
+    public void MeleeActiveAgain()
+    {
+        meleeBool = true;
+    }
 
     public void Spawn()
     {
@@ -151,7 +227,7 @@ public class PlayerController : MonoBehaviour
 
     void Shake()
     {
-        Handheld.Vibrate();
+        
         CinemachineShake.Instance.ShakeCamera(3f, .15f);
     }
 
@@ -162,7 +238,7 @@ public class PlayerController : MonoBehaviour
 
     bool Shooting()
     {
-        if(shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f)
+        if(shootJoystick.Horizontal >= .2f || Input.GetKey(KeyCode.Mouse0) || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f)
         {
             return true;
         }
@@ -268,7 +344,7 @@ public class PlayerController : MonoBehaviour
 
             gameObject.GetComponent<Renderer>().enabled = false;
 
-            Handheld.Vibrate();
+            
             Invoke("CallDeathMenu", 1.1f);
         }
     }
@@ -306,6 +382,8 @@ public class PlayerController : MonoBehaviour
         if((rocketLoot !=null) && rocketBool == false)
         {
             rktButton.RocketButtonOn();
+
+            rocketShootBool = true;
         }
     }
 
