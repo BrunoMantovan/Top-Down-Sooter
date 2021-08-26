@@ -1431,6 +1431,10 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 525012353798859561, guid: 01828526f0d0ea94fab337c791d07989, type: 3}
+      propertyPath: gameMang
+      value: 
+      objectReference: {fileID: 128250535}
     - target: {fileID: 525012353798859564, guid: 01828526f0d0ea94fab337c791d07989, type: 3}
       propertyPath: m_Name
       value: PauseMenu
@@ -2467,6 +2471,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 128250535}
+    - target: {fileID: 7224420387856247521, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224420388013435023, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
 --- !u!223 &813185899 stripped
@@ -2505,6 +2517,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7f5225fd5e9a744d858026025c48f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &813185903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5540702417764766747, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+  m_PrefabInstance: {fileID: 813185898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &813185904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5540702417120085647, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+  m_PrefabInstance: {fileID: 813185898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c480e963cf732544a1996d16d6c8c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &813185905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5540702417991342627, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+  m_PrefabInstance: {fileID: 813185898}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &813185906 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5540702418185303925, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+  m_PrefabInstance: {fileID: 813185898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &813185907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5540702417120085632, guid: 3bd12d8561477b1488375ec5c56d5086, type: 3}
+  m_PrefabInstance: {fileID: 813185898}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &872533599
@@ -5373,6 +5428,46 @@ PrefabInstance:
       propertyPath: icons.Array.data[2]
       value: 
       objectReference: {fileID: 789060772}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: meleeScript
+      value: 
+      objectReference: {fileID: 1895897901}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: meleeObj
+      value: 
+      objectReference: {fileID: 1895897899}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: rocketButInter
+      value: 
+      objectReference: {fileID: 813185906}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: rocketTimer
+      value: 
+      objectReference: {fileID: 813185903}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: meleeButton
+      value: 
+      objectReference: {fileID: 813185907}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: rocketButton
+      value: 
+      objectReference: {fileID: 813185906}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: timerCrcl
+      value: 
+      objectReference: {fileID: 813185905}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: meleebut
+      value: 
+      objectReference: {fileID: 813185904}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: gameMang
+      value: 
+      objectReference: {fileID: 128250535}
+    - target: {fileID: 4029724455802515296, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+      propertyPath: pauseMenu
+      value: 
+      objectReference: {fileID: 456679295}
     - target: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5448,6 +5543,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4029724455802515299, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
   m_PrefabInstance: {fileID: 1895897897}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1895897901 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1117805862480629882, guid: 6b51b451bcbd43e47aecd7f145e0ce0f, type: 3}
+  m_PrefabInstance: {fileID: 1895897897}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895897899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7adf818360ee024b92897b4004d9270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1904264755
 GameObject:
   m_ObjectHideFlags: 0

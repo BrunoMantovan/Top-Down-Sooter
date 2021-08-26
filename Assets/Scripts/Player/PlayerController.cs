@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public MeleeButton meleebut;
 
+    public GameManager gameMang;
+
     public melee meleeScript;
 
     public Canvas joystickCanvas;
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
     public Button rocketButInter;
 
+    public GameObject pauseMenu;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -196,6 +199,12 @@ public class PlayerController : MonoBehaviour
             rocketTimer.SetActive(true);
             RocketOn();
             rocketButInter.interactable = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && gameMang.currentGameState == GameState.inGame)
+        {
+            pauseMenu.SetActive(true);
+            gameMang.PauseGame();
         }
     }
 
