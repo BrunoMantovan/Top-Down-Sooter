@@ -17,7 +17,7 @@ public class SpitProjectile : MonoBehaviour
         {
             GameObject impact = Instantiate(acidImpact, transform.position, Quaternion.identity);
             Destroy(impact, 0.61f);
-            player.TakeDamage(projectileDamage);
+            player.lifesDecrease();
             Destroy(gameObject);
         }
 

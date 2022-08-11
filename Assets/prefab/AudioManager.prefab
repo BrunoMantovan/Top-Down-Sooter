@@ -27,6 +27,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -64,6 +65,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: explosion2
     clip: {fileID: 8300000, guid: 94b8c4ecd08d0c94d80fb51af0b87adf, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Plasma Rocket
+    clip: {fileID: 8300000, guid: 2f6cca810dd15964e8ce82160372621c, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Plasma Impact
+    clip: {fileID: 8300000, guid: d881930ea693d2a41853beac07cce3ce, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0

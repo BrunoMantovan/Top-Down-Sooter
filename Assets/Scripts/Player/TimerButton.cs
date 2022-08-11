@@ -8,8 +8,7 @@ public class TimerButton : MonoBehaviour
     public GameObject timerCircle;
     public float timer = 10f;
 
-    // Start is called before the first frame update
-    void Start()
+    public void InvokeCircleOff()
     {
         Invoke("TimerCircleOff", timer);
     }

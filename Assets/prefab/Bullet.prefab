@@ -29,7 +29,8 @@ Transform:
   m_GameObject: {fileID: 8510372308388456095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.508, y: 1.404, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +46,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -113,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c7caf4bcc9a26345a9cc46cee83fef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 2361245713327064523, guid: 586c809b3b067e746b76e4eea152aeaf, type: 3}
+  hitEffect: {fileID: 5793529279831478550, guid: 182cda578575726439d05ef1799456eb, type: 3}
   bulletDamage: 20
 --- !u!50 &451689991671057808
 Rigidbody2D:

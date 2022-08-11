@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public Button meleeButton;
     public Button rocketButton;
 
+    public TimerButton timerButton;
     public GameObject timerCrcl;
 
     public MeleeButton meleebut;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     const string stateShooting = "Shooting";
     const string stateMoving = "Moving";
-    const string stateMelee = "Melee";
+    public const string stateMelee = "Melee";
     const string stateDisabled = "isDisabled";
 
     Animator anim;
@@ -53,11 +54,12 @@ public class PlayerController : MonoBehaviour
 
     public GameObject spawnEffect;
 
+    public bool ableToShoot;
     public bool bullet2Bool;
     public bool rocketBool;
     public bool meleeBool;
 
-    public int lifes;
+    public int lifes = 3;
     public int NumberOfIcons;
 
     public Image[] icons;
@@ -75,14 +77,20 @@ public class PlayerController : MonoBehaviour
     public Button rocketButInter;
 
     public GameObject pauseMenu;
+
+    public int initialLifes = 3;
+   
     private void Awake()
     {
+        
         anim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        lifes = PlayerPrefs.GetInt("VidasJugador1", lifes);
+
         currentHealth = initialHealth;
 
         healthBar.SetMaxHealth(initialHealth);
@@ -94,13 +102,15 @@ public class PlayerController : MonoBehaviour
 
         startPosition = this.transform.position;
 
+        ableToShoot = true;
         meleeBool = true;
     }   
     
 
     // Update is called once per frame
     void Update()
-    {
+    {        
+
         if (lifes > NumberOfIcons)
         {
             lifes = NumberOfIcons;
@@ -186,12 +196,13 @@ public class PlayerController : MonoBehaviour
         {
             meleeObj.SetActive(true);
             timerCrcl.SetActive(true);
+            timerButton.InvokeCircleOff();
             meleeScript.GetComponent<melee>().Start();
             meleeButton.interactable = false;
             meleebut.GetComponent<MeleeButton>().Timer();
             meleeOn();
             meleeBool = false;
-            MeleeTimerOff();
+            Invoke("MeleeActiveAgain", meleeTime);
         }
 
         if (rocketShootBool == true && Input.GetKeyDown(KeyCode.R))
@@ -211,11 +222,6 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-    }
-
-    public void MeleeTimerOff()
-    {
-        Invoke("MeleeActiveAgain", meleeTime);
     }
 
     public void MeleeActiveAgain()
@@ -324,14 +330,20 @@ public class PlayerController : MonoBehaviour
         joystickCanvas.enabled = true;
 
         StartCoroutine(ReactivateCollider(disabledTime));
+        PlayerPrefs.SetInt("VidasJugador1", lifes);
     }
 
     public void lifesDecrease()
     {
+        GetComponent<CircleCollider2D>().enabled = false;
+        anim.SetBool(stateDisabled, true);
 
+        StartCoroutine(ReactivateCollider(disabledTime));
         lifes--;
 
-        if(lifes == 0)
+        PlayerPrefs.SetInt("VidasJugador1", lifes);
+
+        if (lifes == 0)
         {
             Die();
         }
@@ -346,6 +358,7 @@ public class PlayerController : MonoBehaviour
     {
         if(isAlive == true)
         {
+            
             isAlive = false; 
 
             GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
@@ -418,11 +431,21 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetBool(stateMelee, true);
 
+        ableToShoot = false;
+
         Invoke("meleeOff", 0.31f);
     }
 
     public void meleeOff()
     {
         anim.SetBool(stateMelee, false);
+
+        ableToShoot = true;
+    }
+
+    public void ResetLifes()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetInt("VidasJugador1", initialLifes);
     }
 }

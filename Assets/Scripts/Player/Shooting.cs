@@ -27,7 +27,7 @@ public class Shooting : MonoBehaviour
     void Update()
     {
         //NormalBullet
-        if((playerCont.bullet2Bool == false) && playerCont.rocketBool == false)
+        if((playerCont.bullet2Bool == false) && (playerCont.rocketBool == false) && (playerCont.ableToShoot == true))
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
@@ -40,7 +40,7 @@ public class Shooting : MonoBehaviour
         }
 
         //Bullet2
-        if (playerCont.bullet2Bool == true)
+        if (playerCont.bullet2Bool == true && playerCont.ableToShoot == true)
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
@@ -53,12 +53,16 @@ public class Shooting : MonoBehaviour
         }
 
         //Rocket
-        if(playerCont.rocketBool == true)
+        if(playerCont.rocketBool == true && playerCont.ableToShoot == true)
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
                 nextFire = Time.time + rocketFireRate;
-                Shoot3();
+
+                FindObjectOfType<AudioManager>().Play("Plasma Rocket");
+
+                //Shoot3();
+                Invoke("Shoot3", 0.5f);
             }
         }
 

@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
 
         if(player != null)
         {
-            player.TakeDamage(enemyDamage);
+            player.lifesDecrease();
         }
     }
 

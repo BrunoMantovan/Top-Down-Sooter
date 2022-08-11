@@ -19,7 +19,7 @@ public class bullet : MonoBehaviour
         if (enemy != null)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 0.3f);
+            Destroy(effect, 0.4f);
             enemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
@@ -27,7 +27,7 @@ public class bullet : MonoBehaviour
         if (secondEnemy != null)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 0.3f);
+            Destroy(effect, 0.4f);
             secondEnemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
@@ -35,7 +35,7 @@ public class bullet : MonoBehaviour
         if(thirdEnemy != null)
         {
             GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
-            Destroy(effect, 0.3f);
+            Destroy(effect, 0.4f);
             thirdEnemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
@@ -43,7 +43,10 @@ public class bullet : MonoBehaviour
 
         if (collision.gameObject.tag == "bulletCol")
         {
-            Destroy(gameObject);            
+            GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
+            Destroy(effect, 0.4f);
+            
+            Destroy(gameObject);
         }
     }
 }
