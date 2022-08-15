@@ -1,10 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 public class Shooting : MonoBehaviour
 {
     public Transform fireTip;
+    public Transform LMK2FireTip;
+    public Transform CannonFireTip;
+    public GameObject LMK1;
+    public GameObject LMK2;
+    public GameObject Cannon;
+
     public GameObject bulletPrefab;
     public GameObject bulletPrefab2;
     public GameObject rocketPrefab;
@@ -18,16 +25,65 @@ public class Shooting : MonoBehaviour
     public float rocketFireRate = 1f;
     float nextFire = 0f;
 
+    public int maxAmmoLMK2 = 100;
+    public int currentAmmoLMK2;
+    public int maxAmmoPlasmaCannon = 3;
+    public int currentAmmoPlasmaCannon;
+
+    private bool LMK2Active;
+    private bool PlasmaCannonActive;
+
     public Joystick shootJoystick;
 
     public PlayerController playerCont;
 
 
+    public TextMeshProUGUI InfiniteAmmo;
+    public TextMeshProUGUI LMK2AmmoDisplay;
+    public TextMeshProUGUI PlasmaCannonAmmoDisplay;
+
     // Update is called once per frame
     void Update()
     {
+        LMK2AmmoDisplay.text = currentAmmoLMK2.ToString();
+        PlasmaCannonAmmoDisplay.text = currentAmmoPlasmaCannon.ToString();
+
+        if (currentAmmoLMK2 <= 0 && LMK2Active == true)
+        {
+            LMK2Active = false;
+            playerCont.False();
+            return;
+        }
+
+        if (currentAmmoPlasmaCannon <= 0 && PlasmaCannonActive == true)
+        {
+            PlasmaCannonActive = false;
+            playerCont.False2();
+            return;
+        }
+
+        if (playerCont.bullet2Shoot == true)
+        {
+            PlasmaCannonAmmoDisplay.enabled = false;
+            LMK2AmmoDisplay.enabled = true;
+            InfiniteAmmo.enabled = false;
+        }
+        else if (playerCont.rocketAble == true)
+        {
+            LMK2AmmoDisplay.enabled = false;
+            PlasmaCannonAmmoDisplay.enabled = true;
+            InfiniteAmmo.enabled = false;
+        }
+        else
+        {
+            LMK2AmmoDisplay.enabled = false;
+            PlasmaCannonAmmoDisplay.enabled = false;
+            InfiniteAmmo.enabled = true;
+        }
+        
+
         //NormalBullet
-        if((playerCont.bullet2Bool == false) && (playerCont.rocketBool == false) && (playerCont.ableToShoot == true))
+        if((playerCont.bulletBool == true) && (playerCont.ableToShoot == true))
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
@@ -40,11 +96,11 @@ public class Shooting : MonoBehaviour
         }
 
         //Bullet2
-        if (playerCont.bullet2Bool == true && playerCont.ableToShoot == true)
+        if (playerCont.bullet2Shoot == true && playerCont.ableToShoot == true)
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
-                nextFire = Time.time + fireRate;
+                nextFire = Time.time + bullet2FireRate;
 
                 FindObjectOfType<AudioManager>().Play("shoot2");
 
@@ -53,7 +109,7 @@ public class Shooting : MonoBehaviour
         }
 
         //Rocket
-        if(playerCont.rocketBool == true && playerCont.ableToShoot == true)
+        if(playerCont.rocketAble == true && playerCont.ableToShoot == true)
         {
             if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
             {
@@ -70,7 +126,6 @@ public class Shooting : MonoBehaviour
     
     void Shoot()
     {
-
         GameObject Bullet = Instantiate(bulletPrefab, fireTip.position, fireTip.rotation);
         Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
@@ -78,15 +133,29 @@ public class Shooting : MonoBehaviour
 
     void Shoot2()
     {
-        GameObject Bullet2 = Instantiate(bulletPrefab2, fireTip.position, fireTip.rotation);
+        currentAmmoLMK2--;
+        GameObject Bullet2 = Instantiate(bulletPrefab2, LMK2FireTip.position, LMK2FireTip.rotation);
         Rigidbody2D rb2 = Bullet2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+        rb2.AddForce(LMK2FireTip.up * bullet2Force, ForceMode2D.Impulse);
     }
 
     void Shoot3()
     {
-        GameObject Rocket = Instantiate(rocketPrefab, fireTip.position, fireTip.rotation);
+        currentAmmoPlasmaCannon--;
+        GameObject Rocket = Instantiate(rocketPrefab, CannonFireTip.position, CannonFireTip.rotation);
         Rigidbody2D rb3 = Rocket.GetComponent<Rigidbody2D>();
-        rb3.AddForce(fireTip.up * rocketForce, ForceMode2D.Impulse);
+        rb3.AddForce(CannonFireTip.up * rocketForce, ForceMode2D.Impulse);
     }
+
+    public void SetMaxLMK2()
+    {
+        currentAmmoLMK2 = maxAmmoLMK2;
+        LMK2Active = true;
+    }
+    public void SetMaxCannon()
+    {
+        currentAmmoPlasmaCannon = maxAmmoPlasmaCannon;
+        PlasmaCannonActive = true;
+    }
+
 }

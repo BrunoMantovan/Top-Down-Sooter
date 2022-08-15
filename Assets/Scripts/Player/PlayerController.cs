@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Shooting shootingScript;
+
     public Button meleeButton;
     public Button rocketButton;
 
@@ -24,7 +26,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
 
-    const string stateShooting = "Shooting";
+    //const string stateShooting = "Shooting";
     const string stateMoving = "Moving";
     public const string stateMelee = "Melee";
     const string stateDisabled = "isDisabled";
@@ -54,10 +56,14 @@ public class PlayerController : MonoBehaviour
 
     public GameObject spawnEffect;
 
+    public bool bulletBool;
     public bool ableToShoot;
     public bool bullet2Bool;
+    public bool bullet2Shoot;
     public bool rocketBool;
     public bool meleeBool;
+    public bool secondWeapon;
+    public bool rocketAble;
 
     public int lifes = 3;
     public int NumberOfIcons;
@@ -66,8 +72,8 @@ public class PlayerController : MonoBehaviour
     public Sprite fullIcon;
     public Sprite emptyIcon;
 
+    public float switchTime;
     public float meleeTime = 30f;
-
     public float disabledTime;
 
     public bool rocketShootBool = false;
@@ -93,9 +99,9 @@ public class PlayerController : MonoBehaviour
 
         currentHealth = initialHealth;
 
-        healthBar.SetMaxHealth(initialHealth);
+        
 
-        anim.SetBool(stateShooting, false);
+        //anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
         anim.SetBool(stateMelee, false);
         anim.SetBool(stateDisabled, false);
@@ -104,12 +110,21 @@ public class PlayerController : MonoBehaviour
 
         ableToShoot = true;
         meleeBool = true;
+        bulletBool = true;
+        secondWeapon = false;
     }   
     
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+
+        if (Input.GetKeyDown(KeyCode.Q) && secondWeapon == true)
+        {
+            meleeBool = false;
+            ableToShoot = false;
+            Invoke("SwitchWeapon", switchTime);
+        }
 
         if (lifes > NumberOfIcons)
         {
@@ -173,7 +188,7 @@ public class PlayerController : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         
 
-        anim.SetBool(stateShooting, Shooting());
+        //anim.SetBool(stateShooting, Shooting());
 
 
         Vector3 moveVector = new Vector3(shootJoystick.Horizontal, shootJoystick.Vertical);
@@ -205,13 +220,6 @@ public class PlayerController : MonoBehaviour
             Invoke("MeleeActiveAgain", meleeTime);
         }
 
-        if (rocketShootBool == true && Input.GetKeyDown(KeyCode.R))
-        {
-            rocketTimer.SetActive(true);
-            RocketOn();
-            rocketButInter.interactable = false;
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape) && gameMang.currentGameState == GameState.inGame)
         {
             pauseMenu.SetActive(true);
@@ -234,10 +242,10 @@ public class PlayerController : MonoBehaviour
         gameObject.GetComponent<Renderer>().enabled = false;
 
         GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
-        Destroy(spawnEff, 0.73f);
+        Destroy(spawnEff, 0.482f);
 
-        Invoke("Shake", 0.71f);
-        Invoke("EndSpawn", 0.73f);
+        Invoke("Shake", 0.462f);
+        Invoke("EndSpawn", 0.482f);
     }
 
     void Shake()
@@ -253,13 +261,36 @@ public class PlayerController : MonoBehaviour
 
     bool Shooting()
     {
-        if(shootJoystick.Horizontal >= .2f || Input.GetKey(KeyCode.Mouse0) || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f)
+        if((shootJoystick.Horizontal >= .2f || Input.GetKey(KeyCode.Mouse0) || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && ableToShoot == true)
         {
             return true;
         }
         else
         {
             return false;
+        }
+    }
+
+    public void SwitchWeapon()
+    {
+        ableToShoot = true;
+        meleeBool = true;
+
+        if(bulletBool == true && bullet2Bool == true)
+        {
+            bullet2Shoot = true;
+            bulletBool = false;
+        }
+        else if(bulletBool == true && rocketBool == true)
+        {
+            bulletBool = false;
+            rocketAble = true;
+        }
+        else
+        {
+            bulletBool = true;
+            bullet2Shoot = false;
+            rocketAble = false;
         }
     }
 
@@ -384,47 +415,78 @@ public class PlayerController : MonoBehaviour
         RocketLoot rocketLoot = collision.GetComponent<RocketLoot>();
 
         //Bullet2
-        if ((lootObj !=null) && (bullet2Bool == false) && rocketBool == false)
+        if ((lootObj !=null) && (bullet2Bool == false))
         {
-            
+            bulletBool = false;
+            bullet2Shoot = true;
             bullet2Bool = true;
+            secondWeapon = true;
 
-            Invoke("False", 10f);
+            rocketButInter.interactable = false;
+            rocketTimer.SetActive(false);
+            rocketAble = false;
+            rocketBool = false;
+
+            shootingScript.SetMaxLMK2();
         }
 
-        else if((lootObj !=null) && bullet2Bool == true)
+        /*/else if((lootObj !=null) && bullet2Bool == true)
         {
 
             CancelInvoke("False");
 
             Invoke("False", 10f);
-        }
+       } /*/
 
         //Rocket
-        if((rocketLoot !=null) && rocketBool == false)
+        if ((rocketLoot !=null) && rocketBool == false)
         {
-            rktButton.RocketButtonOn();
+            bulletBool = false;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            rocketAble = true;
+            rocketBool = true;
+            secondWeapon = true;
 
-            rocketShootBool = true;
+            rktButton.RocketButtonOn();
+            rocketTimer.SetActive(true);
+
+            shootingScript.SetMaxCannon();
         }
     }
 
-    public void RocketOn()
+    public void False()
     {
-        bullet2Bool = false;
-        rocketBool = true;
-
-        Invoke("False2", 10f);
+        if (bulletBool == false)
+        {
+            ableToShoot = false;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            secondWeapon = false;
+            bulletBool = true;
+            Invoke("DelayedSwitch", switchTime);
+        }
+        else
+        {
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            secondWeapon = false;
+            bulletBool = true;
+        }
     }
-
-    void False()
+    public void False2()
     {
-        bullet2Bool = false;
-    }
-
-    void False2()
-    {
+        rocketButInter.interactable = false;
+        rocketTimer.SetActive(false);
+        secondWeapon = false;
+        rocketAble = false;
+        bulletBool = true;
         rocketBool = false;
+    }
+
+    public void DelayedSwitch()
+    {
+        ableToShoot = true;
     }
 
     public void meleeOn()

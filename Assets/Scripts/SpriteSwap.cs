@@ -5,32 +5,42 @@ using UnityEngine.UI;
 
 public class SpriteSwap : MonoBehaviour
 {
-
+    public Shooting shootingScript;
     private Image image;
-
-    private Sprite LaserMK1, LaserMK2;
+    public PlayerController playerCont;
+    private Sprite LaserMK1, LaserMK2, PlasmaCannon;
 
     private void Start()
     {
         image = GetComponent<Image>();
-        LaserMK1 = Resources.Load<Sprite>("LaserMK1");
-        LaserMK2 = Resources.Load<Sprite>("LaserMK2");
-
-        image.sprite = LaserMK1;
+        LaserMK1 = Resources.Load<Sprite>("LMK1");
+        LaserMK2 = Resources.Load<Sprite>("LMK2");
+        PlasmaCannon = Resources.Load<Sprite>("Cannon");
+        //image.sprite = LaserMK1;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (playerCont.bulletBool == true)
         {
-            if (image.sprite == LaserMK1)
-            {
-                image.sprite = LaserMK2;
-            }
-            else if(image.sprite == LaserMK2)
-            {
-                image.sprite = LaserMK1;
-            }
+            image.sprite = LaserMK1;
+            shootingScript.LMK1.SetActive(true);
+            shootingScript.LMK2.SetActive(false);
+            shootingScript.Cannon.SetActive(false);
+        }
+        else if (playerCont.bullet2Bool == true)
+        {
+            image.sprite = LaserMK2;
+            shootingScript.LMK2.SetActive(true);
+            shootingScript.LMK1.SetActive(false);
+            shootingScript.Cannon.SetActive(false);
+        }
+        else if (playerCont.rocketBool == true)
+        {
+            image.sprite = PlasmaCannon;
+            shootingScript.Cannon.SetActive(true);
+            shootingScript.LMK1.SetActive(false);
+            shootingScript.LMK2.SetActive(false);
         }
     }
 }

@@ -39,6 +39,11 @@ public class Rocket : MonoBehaviour
             thirdEnemy.TakeDamage(rocketDamage);
             EndRcoket();
         }
+
+        if (collision.gameObject.tag == "bulletCol")
+        {
+            EndRcoket();
+        }
     }
 
     void EndRcoket()
