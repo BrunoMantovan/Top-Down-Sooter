@@ -61,9 +61,11 @@ public class PlayerController : MonoBehaviour
     public bool bullet2Bool;
     public bool bullet2Shoot;
     public bool rocketBool;
+    public bool rocketAble;
+    public bool shotgunBool;
+    public bool shotgunAble;
     public bool meleeBool;
     public bool secondWeapon;
-    public bool rocketAble;
 
     public int lifes = 3;
     public int NumberOfIcons;
@@ -286,11 +288,17 @@ public class PlayerController : MonoBehaviour
             bulletBool = false;
             rocketAble = true;
         }
+        else if(bulletBool == true && shotgunBool == true)
+        {
+            bulletBool = false;
+            shotgunAble = true;
+        }
         else
         {
             bulletBool = true;
             bullet2Shoot = false;
             rocketAble = false;
+            shotgunAble = false;
         }
     }
 
@@ -413,7 +421,7 @@ public class PlayerController : MonoBehaviour
     {
         LootObjects lootObj = collision.GetComponent<LootObjects>();
         RocketLoot rocketLoot = collision.GetComponent<RocketLoot>();
-
+        ShotgunLoot shotgunLoot = collision.GetComponent<ShotgunLoot>();
         //Bullet2
         if ((lootObj !=null) && (bullet2Bool == false))
         {
@@ -429,15 +437,6 @@ public class PlayerController : MonoBehaviour
 
             shootingScript.SetMaxLMK2();
         }
-
-        /*/else if((lootObj !=null) && bullet2Bool == true)
-        {
-
-            CancelInvoke("False");
-
-            Invoke("False", 10f);
-       } /*/
-
         //Rocket
         if ((rocketLoot !=null) && rocketBool == false)
         {
@@ -453,26 +452,36 @@ public class PlayerController : MonoBehaviour
 
             shootingScript.SetMaxCannon();
         }
+        //Shotgun
+        if ((shotgunLoot !=null) && shotgunBool == false)
+        {
+            shotgunBool = true;
+            shotgunAble = true;
+            bulletBool = false;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            secondWeapon = true;
+
+            rocketButInter.interactable = false;
+            rocketTimer.SetActive(false);
+            rocketAble = false;
+            rocketBool = false;
+
+            shootingScript.SetMaxShotgun();
+        }
     }
 
     public void False()
     {
-        if (bulletBool == false)
-        {
-            ableToShoot = false;
-            bullet2Bool = false;
-            bullet2Shoot = false;
-            secondWeapon = false;
-            bulletBool = true;
-            Invoke("DelayedSwitch", switchTime);
-        }
-        else
-        {
-            bullet2Bool = false;
-            bullet2Shoot = false;
-            secondWeapon = false;
-            bulletBool = true;
-        }
+
+        ableToShoot = false;
+        bullet2Bool = false;
+        bullet2Shoot = false;
+        secondWeapon = false;
+        bulletBool = true;
+        Invoke("DelayedSwitch", switchTime);
+        
+       
     }
     public void False2()
     {
@@ -482,6 +491,16 @@ public class PlayerController : MonoBehaviour
         rocketAble = false;
         bulletBool = true;
         rocketBool = false;
+    }
+
+    public void False3()
+    {
+        ableToShoot = false;
+        shotgunBool = false;
+        shotgunAble = false;
+        secondWeapon = false;
+        bulletBool = true;
+        Invoke("DelayedSwitch", switchTime);
     }
 
     public void DelayedSwitch()

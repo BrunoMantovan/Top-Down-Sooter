@@ -8,7 +8,7 @@ public class SpriteSwap : MonoBehaviour
     public Shooting shootingScript;
     private Image image;
     public PlayerController playerCont;
-    private Sprite LaserMK1, LaserMK2, PlasmaCannon;
+    private Sprite LaserMK1, LaserMK2, PlasmaCannon, Shotgun;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class SpriteSwap : MonoBehaviour
         LaserMK1 = Resources.Load<Sprite>("LMK1");
         LaserMK2 = Resources.Load<Sprite>("LMK2");
         PlasmaCannon = Resources.Load<Sprite>("Cannon");
-        //image.sprite = LaserMK1;
+        Shotgun = Resources.Load<Sprite>("Shotgun");
     }
 
     private void Update()
@@ -27,6 +27,7 @@ public class SpriteSwap : MonoBehaviour
             shootingScript.LMK1.SetActive(true);
             shootingScript.LMK2.SetActive(false);
             shootingScript.Cannon.SetActive(false);
+            shootingScript.Shotgun.SetActive(false);
         }
         else if (playerCont.bullet2Bool == true)
         {
@@ -34,6 +35,7 @@ public class SpriteSwap : MonoBehaviour
             shootingScript.LMK2.SetActive(true);
             shootingScript.LMK1.SetActive(false);
             shootingScript.Cannon.SetActive(false);
+            shootingScript.Shotgun.SetActive(false);
         }
         else if (playerCont.rocketBool == true)
         {
@@ -41,6 +43,15 @@ public class SpriteSwap : MonoBehaviour
             shootingScript.Cannon.SetActive(true);
             shootingScript.LMK1.SetActive(false);
             shootingScript.LMK2.SetActive(false);
+            shootingScript.Shotgun.SetActive(false);
+        }
+        else if (playerCont.shotgunBool == true)
+        {
+            image.sprite = Shotgun;
+            shootingScript.Shotgun.SetActive(true);
+            shootingScript.LMK1.SetActive(false);
+            shootingScript.LMK2.SetActive(false);
+            shootingScript.Cannon.SetActive(false);
         }
     }
 }

@@ -247,6 +247,7 @@ Transform:
   - {fileID: 8879530409873190923}
   - {fileID: 920090583394974877}
   - {fileID: 1041529796089472271}
+  - {fileID: 8381646372587074420}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -397,9 +398,11 @@ MonoBehaviour:
   bullet2Bool: 0
   bullet2Shoot: 0
   rocketBool: 0
+  rocketAble: 0
+  shotgunBool: 0
+  shotgunAble: 0
   meleeBool: 0
   secondWeapon: 0
-  rocketAble: 0
   lifes: 3
   NumberOfIcons: 3
   icons:
@@ -431,27 +434,37 @@ MonoBehaviour:
   fireTip: {fileID: 4029724455280557898}
   LMK2FireTip: {fileID: 906874651587832945}
   CannonFireTip: {fileID: 3085400683698389118}
+  ShotgunFireTip: {fileID: 1439698490414309473}
   LMK1: {fileID: 7467645589886128867}
   LMK2: {fileID: 6339851115472248596}
   Cannon: {fileID: 3646013638292955564}
+  Shotgun: {fileID: 5475884394263393221}
   bulletPrefab: {fileID: 8510372308388456095, guid: bab34c03c9fa05049a591c3fb0650565, type: 3}
   bulletPrefab2: {fileID: 6896225019047475755, guid: 8cee345e1756c064886fcf5350024e99, type: 3}
   rocketPrefab: {fileID: 7266053143950319593, guid: c04236439be8f404abcf26d403872b19, type: 3}
+  pelletPrefab: {fileID: 8510372308388456095, guid: 82b37e7e1f1743740b787b50933c573a, type: 3}
+  pelletAmount: 8
+  spread: 15
   bulletForce: 80
   bullet2Force: 90
   rocketForce: 20
+  pelletForce: 2000
   fireRate: 0.11
   bullet2FireRate: 0.15
   rocketFireRate: 1
+  shotgunFireRate: 0.75
   maxAmmoLMK2: 100
   currentAmmoLMK2: 0
   maxAmmoPlasmaCannon: 3
   currentAmmoPlasmaCannon: 0
+  maxAmmoShotgun: 20
+  currentAmmoShotgun: 0
   shootJoystick: {fileID: 0}
   playerCont: {fileID: 4029724455802515296}
   InfiniteAmmo: {fileID: 0}
   LMK2AmmoDisplay: {fileID: 0}
   PlasmaCannonAmmoDisplay: {fileID: 0}
+  ShotgunAmmoDisplay: {fileID: 0}
 --- !u!1 &5106282824280928613
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +496,91 @@ Transform:
   m_Father: {fileID: 1041529796089472271}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5475884394263393221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8381646372587074420}
+  - component: {fileID: 8377985635453284954}
+  m_Layer: 0
+  m_Name: Shotgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8381646372587074420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5475884394263393221}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.9555556, y: 0.044444446, z: -0.5555556}
+  m_LocalScale: {x: 0.5555556, y: 0.5555556, z: 0.5555556}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1439698490414309473}
+  m_Father: {fileID: 4029724455802515299}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &8377985635453284954
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5475884394263393221}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -724719301
+  m_SortingLayer: 4
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 1c803d42fd9f5cd44a5d1b279c1f6e4e, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1.07, y: 2.28}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &6339851115472248596
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,3 +751,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &9086709696202720055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1439698490414309473}
+  m_Layer: 0
+  m_Name: ShotgunFireTip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1439698490414309473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9086709696202720055}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.03, y: 0.95, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8381646372587074420}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
