@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - ColliderTrigger
   - melee
+  - TurnOFRange
+  - SpawnSpot
   layers:
   - Default
   - TransparentFX

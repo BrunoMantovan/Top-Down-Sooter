@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
     public Shooting shootingScript;
 
     public Button meleeButton;
-    public Button rocketButton;
 
     public TimerButton timerButton;
     public GameObject timerCrcl;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Camera cam;
 
-    public float moveSpeed = 5f;
+    public float moveSpeed;
 
     //const string stateShooting = "Shooting";
     const string stateMoving = "Moving";
@@ -33,20 +33,12 @@ public class PlayerController : MonoBehaviour
 
     Animator anim;
     private PlayerController player;
-    public RocketButton rktButton;
+    
 
     Vector2 movement;
     Vector2 mousePos;
 
-    public GameObject meleeObj;
-
-    public Joystick joystick;
-
-    public Joystick shootJoystick;
-
-    public int initialHealth = 100;
-    public int currentHealth;
-    public HealthBar healthBar;
+    public GameObject meleeObj;    
 
     public GameObject dieEffect;
 
@@ -55,6 +47,8 @@ public class PlayerController : MonoBehaviour
     bool isAlive = true;
 
     public GameObject spawnEffect;
+    public GameObject spawnEffect2;
+    public GameObject spawnEffect3;
 
     public bool bulletBool;
     public bool ableToShoot;
@@ -67,9 +61,11 @@ public class PlayerController : MonoBehaviour
     public bool meleeBool;
     public bool secondWeapon;
 
+    public bool rotationOn;
+
     public int lifes = 3;
     public int NumberOfIcons;
-
+    public int initialLifes = 3;
     public Image[] icons;
     public Sprite fullIcon;
     public Sprite emptyIcon;
@@ -86,22 +82,32 @@ public class PlayerController : MonoBehaviour
 
     public GameObject pauseMenu;
 
-    public int initialLifes = 3;
-   
+    public SceneChanger sceneChanger;
+    private int sceneNumber;
+
+    private string secondaryWeapon;
+
+    private int backpackInt = 0;
+    public GameObject backpack;
     private void Awake()
-    {
-        
+    {       
+        rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        moveSpeed = PlayerPrefs.GetFloat("moveSpeed", moveSpeed);
         lifes = PlayerPrefs.GetInt("VidasJugador1", lifes);
+        secondaryWeapon = PlayerPrefs.GetString("ArmaSecundaria", secondaryWeapon);
+        EquipSecondaryWeapon();
+        backpackInt = PlayerPrefs.GetInt("backpackInt", backpackInt);
 
-        currentHealth = initialHealth;
+        Invoke("backpackFunction", 1.334f);
 
-        
+        Spawn();  
+
 
         //anim.SetBool(stateShooting, false);
         anim.SetBool(stateMoving, false);
@@ -112,15 +118,13 @@ public class PlayerController : MonoBehaviour
 
         ableToShoot = true;
         meleeBool = true;
-        bulletBool = true;
-        secondWeapon = false;
+        
     }   
     
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Q) && secondWeapon == true)
         {
             meleeBool = false;
@@ -155,8 +159,8 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        movement.x = joystick.Horizontal;
-        movement.y = joystick.Vertical;
+        movement.x = 0;
+        movement.y = 0;
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -175,6 +179,12 @@ public class PlayerController : MonoBehaviour
             movement.y = 1;
         }
 
+        if(movement.magnitude > 1f)
+        {
+            movement.Normalize();
+        }
+
+        if(rotationOn == true) { 
         Vector3 posMouse = Input.mousePosition;
         posMouse.z = 0;
 
@@ -188,19 +198,10 @@ public class PlayerController : MonoBehaviour
 
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        
 
-        //anim.SetBool(stateShooting, Shooting());
-
-
-        Vector3 moveVector = new Vector3(shootJoystick.Horizontal, shootJoystick.Vertical);
-
-        if (shootJoystick.Horizontal != 0 || shootJoystick.Vertical != 0)
-        {
-            transform.rotation = Quaternion.LookRotation(Vector3.forward, moveVector);
         }
 
-        if(joystick.Horizontal !=0 || joystick.Vertical != 0 || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
+        if(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))
         {
             anim.SetBool(stateMoving, true);
         }
@@ -241,36 +242,39 @@ public class PlayerController : MonoBehaviour
 
     public void Spawn()
     {
+        shootingScript.LMK1.SetActive(false);
+        shootingScript.LMK2.SetActive(false);
+        shootingScript.Cannon.SetActive(false);
+        shootingScript.Shotgun.SetActive(false);
+        rb.bodyType = RigidbodyType2D.Static;
         gameObject.GetComponent<Renderer>().enabled = false;
 
-        GameObject spawnEff = Instantiate(spawnEffect, transform.position, Quaternion.identity);
-        Destroy(spawnEff, 0.482f);
-
-        Invoke("Shake", 0.462f);
-        Invoke("EndSpawn", 0.482f);
-    }
-
-    void Shake()
-    {
-        
-        CinemachineShake.Instance.ShakeCamera(3f, .15f);
+        if (SceneManager.GetActiveScene().buildIndex == 2) 
+        {
+            GameObject spawnEff2 = Instantiate(spawnEffect2, transform.position, transform.rotation);
+            Destroy(spawnEff2, 1.334f);
+            Invoke("EndSpawn", 1.334f);
+        }
+        else if (SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            GameObject spawnEff3 = Instantiate(spawnEffect3, transform.position, transform.rotation);
+            Destroy(spawnEff3, 1.334f);
+            Invoke("EndSpawn", 1.334f);
+        }
+        else
+        {
+            GameObject spawnEff = Instantiate(spawnEffect, transform.position, transform.rotation);
+            Destroy(spawnEff, 1.250f);
+            Invoke("EndSpawn", 1.250f);
+        }
     }
 
     public void EndSpawn()
     {
         gameObject.GetComponent<Renderer>().enabled = true;
-    }
-
-    bool Shooting()
-    {
-        if((shootJoystick.Horizontal >= .2f || Input.GetKey(KeyCode.Mouse0) || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f) && ableToShoot == true)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        rotationOn = true;
+        shootingScript.LMK1.SetActive(true);
+        rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     public void SwitchWeapon()
@@ -293,7 +297,7 @@ public class PlayerController : MonoBehaviour
             bulletBool = false;
             shotgunAble = true;
         }
-        else
+        else if(bulletBool == false)
         {
             bulletBool = true;
             bullet2Shoot = false;
@@ -302,34 +306,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int enemyDamage)
-    {
-        currentHealth -= enemyDamage;
-
-        healthBar.SetHealth(currentHealth);
-
-        if(currentHealth <= 0)
-        {
-            if (lifes > 1)
-            {
-                currentHealth = initialHealth;
-                healthBar.SetHealth(currentHealth);
-
-                GetComponent<CircleCollider2D>().enabled = false;
-                anim.SetBool(stateDisabled, true);
-
-                StartCoroutine(ReactivateCollider(disabledTime)); 
-
-                lifesDecrease();
-            }
-            else if(lifes <= 1)
-            {
-                lifesDecrease();
-
-                Die();
-            }
-        }         
-    }
+    
 
     public void explosionHit()
     {
@@ -348,29 +325,37 @@ public class PlayerController : MonoBehaviour
         anim.SetBool(stateDisabled, false);
     }
 
-    public void extraLife()
+    private void backpackFunction()
     {
-        FindObjectOfType<GameManager>().StartGame();
-
-        
-
-        currentHealth = initialHealth;
-        healthBar.SetHealth(currentHealth);
-
-        lifes++;
-
-        gameObject.GetComponent<Renderer>().enabled = true;
-
-        GetComponent<CircleCollider2D>().enabled = false;
-        anim.SetBool(stateDisabled, true);
-
-        isAlive = true;
-
-        joystickCanvas.enabled = true;
-
-        StartCoroutine(ReactivateCollider(disabledTime));
-        PlayerPrefs.SetInt("VidasJugador1", lifes);
+        if(backpackInt == 1)
+        {
+            backpack.SetActive(true);
+        }else if (backpackInt == 0)
+        {
+            backpack.SetActive(false);
+        }
     }
+    public void ExtraSpeed()
+    {
+        moveSpeed = moveSpeed * 1.15f;
+        backpackInt = 1;
+        PlayerPrefs.SetInt("backpackInt", backpackInt);
+        backpackFunction();
+        PlayerPrefs.SetFloat("moveSpeed", moveSpeed);
+    }
+    public void LifeIncrease()
+    {
+        if(lifes == 3)
+        {
+            return;
+        }
+        else
+        {
+            lifes++;
+            PlayerPrefs.SetInt("VidasJugador1", lifes);
+        }
+    }
+
 
     public void lifesDecrease()
     {
@@ -405,7 +390,8 @@ public class PlayerController : MonoBehaviour
 
             gameObject.GetComponent<Renderer>().enabled = false;
 
-            
+            rb.bodyType = RigidbodyType2D.Static;
+
             Invoke("CallDeathMenu", 1.1f);
         }
     }
@@ -415,6 +401,57 @@ public class PlayerController : MonoBehaviour
         FindObjectOfType<GameManager>().DeathTrigger();
     }
 
+
+    public void EquipSecondaryWeapon()
+    {
+        if(secondaryWeapon == "LMK2")
+        {
+            bulletBool = false;
+            bullet2Shoot = true;
+            bullet2Bool = true;          
+            rocketAble = false;
+            rocketBool = false;
+            shotgunBool = false;
+            shotgunAble = false;
+            secondWeapon = true;
+            shootingScript.LMK2Active = true;            
+        }
+        else if (secondaryWeapon == "PlasmaCannon")
+        {
+            bulletBool = false;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            rocketAble = true;
+            rocketBool = true;
+            shotgunBool = false;
+            shotgunAble = false;
+            secondWeapon = true;
+            shootingScript.PlasmaCannonActive = true;
+        }
+        else if (secondaryWeapon == "Shotgun")
+        {
+            shotgunBool = true;
+            shotgunAble = true;
+            bulletBool = false;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            secondWeapon = true;
+            rocketAble = false;
+            rocketBool = false;
+            shootingScript.ShotgunActive = true;
+        }
+        else
+        {
+            bulletBool = true;
+            bullet2Bool = false;
+            bullet2Shoot = false;
+            rocketAble = false;
+            rocketBool = false;
+            shotgunBool = false;
+            shotgunAble = false;
+            secondWeapon = false;
+        }
+    }
    
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -425,49 +462,32 @@ public class PlayerController : MonoBehaviour
         //Bullet2
         if ((lootObj !=null) && (bullet2Bool == false))
         {
-            bulletBool = false;
-            bullet2Shoot = true;
-            bullet2Bool = true;
-            secondWeapon = true;
-
-            rocketButInter.interactable = false;
-            rocketTimer.SetActive(false);
-            rocketAble = false;
-            rocketBool = false;
+            secondaryWeapon = "LMK2";
+            PlayerPrefs.SetString("ArmaSecundaria", secondaryWeapon);
+            EquipSecondaryWeapon();
 
             shootingScript.SetMaxLMK2();
+            FindObjectOfType<AudioManager>().Play("PickUP");
         }
         //Rocket
         if ((rocketLoot !=null) && rocketBool == false)
         {
-            bulletBool = false;
-            bullet2Bool = false;
-            bullet2Shoot = false;
-            rocketAble = true;
-            rocketBool = true;
-            secondWeapon = true;
-
-            rktButton.RocketButtonOn();
-            rocketTimer.SetActive(true);
+            secondaryWeapon = "PlasmaCannon";
+            PlayerPrefs.SetString("ArmaSecundaria", secondaryWeapon);
+            EquipSecondaryWeapon();
 
             shootingScript.SetMaxCannon();
+            FindObjectOfType<AudioManager>().Play("PickUP");
         }
         //Shotgun
         if ((shotgunLoot !=null) && shotgunBool == false)
         {
-            shotgunBool = true;
-            shotgunAble = true;
-            bulletBool = false;
-            bullet2Bool = false;
-            bullet2Shoot = false;
-            secondWeapon = true;
-
-            rocketButInter.interactable = false;
-            rocketTimer.SetActive(false);
-            rocketAble = false;
-            rocketBool = false;
+            secondaryWeapon = "Shotgun";
+            PlayerPrefs.SetString("ArmaSecundaria", secondaryWeapon);
+            EquipSecondaryWeapon();
 
             shootingScript.SetMaxShotgun();
+            FindObjectOfType<AudioManager>().Play("PickUP");
         }
     }
 
@@ -485,8 +505,6 @@ public class PlayerController : MonoBehaviour
     }
     public void False2()
     {
-        rocketButInter.interactable = false;
-        rocketTimer.SetActive(false);
         secondWeapon = false;
         rocketAble = false;
         bulletBool = true;

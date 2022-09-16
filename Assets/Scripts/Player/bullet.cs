@@ -6,9 +6,8 @@ public class bullet : MonoBehaviour
 {
     public GameObject hitEffect;
 
-    public int bulletDamage = 50;
-
-
+    public int bulletDamage;
+ 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
@@ -22,6 +21,7 @@ public class bullet : MonoBehaviour
             Destroy(effect, 0.4f);
             enemy.TakeDamage(bulletDamage);
             Destroy(gameObject);
+            FindObjectOfType<AudioManager>().Play("LMKImpact");
         }
 
         if (secondEnemy != null)

@@ -8,6 +8,7 @@ public class Score : MonoBehaviour
 {
     Text scoreText;
     public static int scoreAmount;
+    
 
     void Start()
     {

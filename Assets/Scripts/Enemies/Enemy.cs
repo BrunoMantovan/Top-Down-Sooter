@@ -110,6 +110,7 @@ public class Enemy : MonoBehaviour
 
         if(player != null)
         {
+            FindObjectOfType<AudioManager>().Play("AlienAttack");
             player.lifesDecrease();
         }
     }
@@ -136,6 +137,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        FindObjectOfType<AudioManager>().Play("AlienDeath");
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1.3f);
 

@@ -32,11 +32,14 @@ public class ThirdEnemy : MonoBehaviour
     public int scoreValue;
 
     public GameObject dieEffect;
-
+    
+    public AudioSource chase;
+    private bool attacking;
 
     // Start is called before the first frame update
     void Start()
     {
+        chase = GetComponent<AudioSource>();
         rb = this.GetComponent<Rigidbody2D>();
 
         waitTime = startWaitTime;
@@ -72,6 +75,17 @@ public class ThirdEnemy : MonoBehaviour
         else if (Vector2.Distance(transform.position, playerPos.position) < attackDistance)
         {
             transform.position = Vector2.MoveTowards(transform.position, playerPos.position, attackSpeed * Time.deltaTime);
+
+            AttackingSound();            
+        }
+    }
+
+    void AttackingSound()
+    {
+        if (attacking == false)
+        {
+            attacking = true;
+            chase.Play();
         }
     }
 
@@ -148,6 +162,8 @@ public class ThirdEnemy : MonoBehaviour
 
     public void Die()
     {
+        chase.Stop();
+        FindObjectOfType<AudioManager>().Play("AlienDeath");
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.583f);
 
@@ -160,6 +176,8 @@ public class ThirdEnemy : MonoBehaviour
 
     public void ImpactDie()
     {
+        chase.Stop();
+        FindObjectOfType<AudioManager>().Play("Alien3Explosion");
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 0.583f);
 

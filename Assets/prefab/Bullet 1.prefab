@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8510372308388456093}
   - component: {fileID: 8510372308388456092}
   - component: {fileID: 1054183516385454652}
-  - component: {fileID: 8567594945456439688}
+  - component: {fileID: 2465961407134233081}
   - component: {fileID: 451689991671057808}
   m_Layer: 0
   m_Name: Bullet 1
@@ -103,7 +103,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0065957177, y: 0.21540785}
   m_Size: {x: 0.15875393, y: 0.2474273}
   m_Direction: 0
---- !u!114 &8567594945456439688
+--- !u!114 &2465961407134233081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,11 +112,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8510372308388456095}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c7caf4bcc9a26345a9cc46cee83fef0, type: 3}
+  m_Script: {fileID: 11500000, guid: 49cee8f70858cda43bac692dcbfb11cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 2361245713327064523, guid: 586c809b3b067e746b76e4eea152aeaf, type: 3}
-  bulletDamage: 30
+  bulletDamage: 50
 --- !u!50 &451689991671057808
 Rigidbody2D:
   serializedVersion: 4

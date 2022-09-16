@@ -45,7 +45,7 @@ public class PressurePlate : MonoBehaviour
         GameObject explosion2 = Instantiate(explosionPrefab, explosionN2.position, explosionN2.rotation);
         GameObject explosion3 = Instantiate(explosionPrefab, explosionN3.position, explosionN3.rotation);
         GameObject explosion4 = Instantiate(explosionPrefab, explosionN4.position, explosionN4.rotation);
-        GameObject explosion5 = Instantiate(explosionPrefab2, transform.position, Quaternion.identity);
+        GameObject explosion5 = Instantiate(explosionPrefab2, transform.position, transform.rotation);
 
         endPlate();
     }

@@ -49,4 +49,4 @@ MonoBehaviour:
   OP2: {fileID: 0}
   OP3: {fileID: 0}
   leaveMsg: {fileID: 0}
-  totalDeadEnemies: 10
+  totalDeadEnemies: 50

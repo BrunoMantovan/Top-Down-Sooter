@@ -67,6 +67,7 @@ public class SecondEnemy : MonoBehaviour
                 Rigidbody2D rbSpit = spit.GetComponent<Rigidbody2D>();
                 rbSpit.AddForce(fireTip.up * spitForce, ForceMode2D.Impulse);
                 timeBtwShots = fireRate;
+                FindObjectOfType<AudioManager>().Play("AlienShoot");
             }
             else
             {
@@ -85,6 +86,7 @@ public class SecondEnemy : MonoBehaviour
                 Rigidbody2D rbSpit = spit.GetComponent<Rigidbody2D>();
                 rbSpit.AddForce(fireTip.up * spitForce, ForceMode2D.Impulse);
                 timeBtwShots = fireRate;
+                FindObjectOfType<AudioManager>().Play("AlienShoot");
             }
             else
             {
@@ -123,7 +125,7 @@ public class SecondEnemy : MonoBehaviour
 
     public void Die()
     {
-
+        FindObjectOfType<AudioManager>().Play("AlienDeath");
         GameObject effect = Instantiate(dieEffect, transform.position, Quaternion.identity);
         Destroy(effect, 1.3f);
 

@@ -18,6 +18,7 @@ public class Shooting : MonoBehaviour
     public GameObject bulletPrefab2;
     public GameObject rocketPrefab;
     public GameObject pelletPrefab;
+    public GameObject newBulletPrefab;
     public int pelletAmount;
 
     public float spread;
@@ -39,11 +40,9 @@ public class Shooting : MonoBehaviour
     public int maxAmmoShotgun = 20;
     public int currentAmmoShotgun;
 
-    private bool LMK2Active;
-    private bool PlasmaCannonActive;
-    private bool ShotgunActive;
-
-    public Joystick shootJoystick;
+    public bool LMK2Active;
+    public bool PlasmaCannonActive;
+    public bool ShotgunActive;
 
     public PlayerController playerCont;
 
@@ -54,6 +53,8 @@ public class Shooting : MonoBehaviour
     public TextMeshProUGUI PlasmaCannonAmmoDisplay;
     public TextMeshProUGUI ShotgunAmmoDisplay;
 
+    public int extraBulletDamage = 0;
+
     private void Awake()
     {
         pellets = new List<Quaternion>(pelletAmount);
@@ -61,6 +62,14 @@ public class Shooting : MonoBehaviour
         {
             pellets.Add(Quaternion.Euler(Vector3.zero));
         }
+    }
+    private void Start()
+    {
+        currentAmmoLMK2 = PlayerPrefs.GetInt("LMK2Ammo", currentAmmoLMK2);
+        currentAmmoPlasmaCannon = PlayerPrefs.GetInt("cannonAmmo", currentAmmoPlasmaCannon);
+        currentAmmoShotgun = PlayerPrefs.GetInt("shotgunAmmo", currentAmmoShotgun);
+
+        extraBulletDamage = PlayerPrefs.GetInt("ExtraBulletDamage", extraBulletDamage);
     }
     void Update()
     {
@@ -94,12 +103,14 @@ public class Shooting : MonoBehaviour
             PlasmaCannonAmmoDisplay.enabled = false;
             LMK2AmmoDisplay.enabled = true;
             InfiniteAmmo.enabled = false;
+            ShotgunAmmoDisplay.enabled = false;
         }
         else if (playerCont.rocketAble == true)
         {
             LMK2AmmoDisplay.enabled = false;
             PlasmaCannonAmmoDisplay.enabled = true;
             InfiniteAmmo.enabled = false;
+            ShotgunAmmoDisplay.enabled = false;
         }
         else if(playerCont.shotgunAble == true)
         {
@@ -110,6 +121,7 @@ public class Shooting : MonoBehaviour
         }
         else
         {
+            ShotgunAmmoDisplay.enabled = false;
             LMK2AmmoDisplay.enabled = false;
             PlasmaCannonAmmoDisplay.enabled = false;
             InfiniteAmmo.enabled = true;
@@ -119,7 +131,7 @@ public class Shooting : MonoBehaviour
         //NormalBullet
         if((playerCont.bulletBool == true) && (playerCont.ableToShoot == true))
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
             {
                 nextFire = Time.time + fireRate;
 
@@ -132,7 +144,7 @@ public class Shooting : MonoBehaviour
         //Bullet2
         if (playerCont.bullet2Shoot == true && playerCont.ableToShoot == true)
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
             {
                 nextFire = Time.time + bullet2FireRate;
 
@@ -145,7 +157,7 @@ public class Shooting : MonoBehaviour
         //Rocket
         if(playerCont.rocketAble == true && playerCont.ableToShoot == true)
         {
-            if ((shootJoystick.Horizontal >= .2f || shootJoystick.Horizontal <= -.2f || shootJoystick.Vertical >= .2f || shootJoystick.Vertical <= -.2f || Input.GetKey(KeyCode.Mouse0)) && Time.time > nextFire)
+            if (Input.GetKey(KeyCode.Mouse0) && Time.time > nextFire)
             {
                 nextFire = Time.time + rocketFireRate;
 
@@ -163,7 +175,7 @@ public class Shooting : MonoBehaviour
             {
                 nextFire = Time.time + shotgunFireRate;
 
-                //FindObjectOfType<AudioManager>().Play("Plasma Rocket");
+                FindObjectOfType<AudioManager>().Play("Shotgun-Fire");
 
                 Shoot4();
             }
@@ -173,15 +185,25 @@ public class Shooting : MonoBehaviour
     //LMK1
     void Shoot()
     {
-        GameObject Bullet = Instantiate(bulletPrefab, fireTip.position, fireTip.rotation);
-        Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+        if(extraBulletDamage == 0)
+        {
+            GameObject Bullet = Instantiate(bulletPrefab, fireTip.position, fireTip.rotation);
+            Rigidbody2D rb = Bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+        }
+        else if (extraBulletDamage == 1)
+        {
+            GameObject newBullet = Instantiate(newBulletPrefab, fireTip.position, fireTip.rotation);
+            Rigidbody2D rb = newBullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(fireTip.up * bulletForce, ForceMode2D.Impulse);
+        }
     }
 
     //LMK2
     void Shoot2()
     {
         currentAmmoLMK2--;
+        PlayerPrefs.SetInt("LMK2Ammo", currentAmmoLMK2);
         GameObject Bullet2 = Instantiate(bulletPrefab2, LMK2FireTip.position, LMK2FireTip.rotation);
         Rigidbody2D rb2 = Bullet2.GetComponent<Rigidbody2D>();
         rb2.AddForce(LMK2FireTip.up * bullet2Force, ForceMode2D.Impulse);
@@ -191,6 +213,7 @@ public class Shooting : MonoBehaviour
     void Shoot3()
     {
         currentAmmoPlasmaCannon--;
+        PlayerPrefs.SetInt("cannonAmmo", currentAmmoPlasmaCannon);
         GameObject Rocket = Instantiate(rocketPrefab, CannonFireTip.position, CannonFireTip.rotation);
         Rigidbody2D rb3 = Rocket.GetComponent<Rigidbody2D>();
         rb3.AddForce(CannonFireTip.up * rocketForce, ForceMode2D.Impulse);
@@ -200,6 +223,7 @@ public class Shooting : MonoBehaviour
     void Shoot4()
     {
         currentAmmoShotgun = currentAmmoShotgun -4;
+        PlayerPrefs.SetInt("shotgunAmmo", currentAmmoShotgun);
         for (int i = 0; i < pelletAmount; i++)
         {
             pellets[i] = Random.rotation;
@@ -213,17 +237,26 @@ public class Shooting : MonoBehaviour
     public void SetMaxLMK2()
     {
         currentAmmoLMK2 = maxAmmoLMK2;
+        PlayerPrefs.SetInt("LMK2Ammo", currentAmmoLMK2);
         LMK2Active = true;
     }
     public void SetMaxCannon()
     {
         currentAmmoPlasmaCannon = maxAmmoPlasmaCannon;
+        PlayerPrefs.SetInt("cannonAmmo", currentAmmoPlasmaCannon);
         PlasmaCannonActive = true;
     }
 
     public void SetMaxShotgun()
     {
         currentAmmoShotgun = maxAmmoShotgun;
+        PlayerPrefs.SetInt("shotgunAmmo", currentAmmoShotgun);
         ShotgunActive = true;
+    }
+
+    public void newBulletDamage()
+    {
+        extraBulletDamage = 1;
+        PlayerPrefs.SetInt("ExtraBulletDamage", extraBulletDamage);
     }
 }

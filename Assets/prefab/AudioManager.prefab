@@ -47,37 +47,113 @@ MonoBehaviour:
   sounds:
   - name: shoot
     clip: {fileID: 8300000, guid: 9dff082f8b821a445bba4037586f3930, type: 3}
-    volume: 0.1
+    volume: 0.08
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
   - name: shoot2
     clip: {fileID: 8300000, guid: 9dff082f8b821a445bba4037586f3930, type: 3}
     volume: 0.1
     pitch: 2
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
   - name: explosion1
     clip: {fileID: 8300000, guid: bf5de0734a420b943a64acf08270e713, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
   - name: explosion2
     clip: {fileID: 8300000, guid: 94b8c4ecd08d0c94d80fb51af0b87adf, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
   - name: Plasma Rocket
     clip: {fileID: 8300000, guid: 2f6cca810dd15964e8ce82160372621c, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
   - name: Plasma Impact
     clip: {fileID: 8300000, guid: d881930ea693d2a41853beac07cce3ce, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
     source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: Shotgun-Fire
+    clip: {fileID: 8300000, guid: 0b5203d229914bd41beced9137da0776, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: Shotgun-Impact
+    clip: {fileID: 8300000, guid: fe10c7ea0da89e94790c05a86fbab025, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: LMKImpact
+    clip: {fileID: 8300000, guid: 89f14d985731cf743bf1cc885fb55412, type: 3}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: PlayerEntrance
+    clip: {fileID: 8300000, guid: f68954a9d45c4f04cac305bd492988d8, type: 3}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: Alien3Explosion
+    clip: {fileID: 8300000, guid: e745fbe1a8b7aaf4c894c2d2147c784a, type: 3}
+    volume: 0.03
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: AlienDeath
+    clip: {fileID: 8300000, guid: ee10dce7c3cd32e408cca93401864431, type: 3}
+    volume: 0.044
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: AlienShoot
+    clip: {fileID: 8300000, guid: d9bbdd0a80d7e7649883162ba1871dfc, type: 3}
+    volume: 0.044
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: AlienAttack
+    clip: {fileID: 8300000, guid: f12a53b2c82f79f4a86cfc6ad0cfcfa5, type: 3}
+    volume: 0.044
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: PickUP
+    clip: {fileID: 8300000, guid: 0ad55eec0a582d74fbab3c63dc0d629d, type: 3}
+    volume: 0.044
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}
+  - name: Coins
+    clip: {fileID: 8300000, guid: 875d5b14cb0f34e4ba75884ea2483644, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+    audioMixerGroup: {fileID: 6386963610928507256, guid: e48c6453f0f0e464bbce040bb31512cb, type: 2}

@@ -9,7 +9,7 @@ public class Explosion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        FindObjectOfType<AudioManager>().Play("Plasma Impact");
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

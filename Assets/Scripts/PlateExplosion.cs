@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlateExplosion : MonoBehaviour
 {
     public int explosionDamage = 50;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +18,7 @@ public class PlateExplosion : MonoBehaviour
     {
         Enemy enemy = collision.GetComponent<Enemy>();
         SecondEnemy secondEnemy = collision.GetComponent<SecondEnemy>();
+        ThirdEnemy thirdEnemy = collision.GetComponent<ThirdEnemy>();
         PlayerController player = collision.GetComponent<PlayerController>();
 
         if (enemy != null)
@@ -29,10 +30,14 @@ public class PlateExplosion : MonoBehaviour
         {
             secondEnemy.TakeDamage(explosionDamage);
         }
+        if (thirdEnemy != null)
+        {
+            thirdEnemy.TakeDamage(explosionDamage);
+        }
 
         if (player != null)
         {
-            player.explosionHit();
+            player.lifesDecrease();
         }
     }
 
