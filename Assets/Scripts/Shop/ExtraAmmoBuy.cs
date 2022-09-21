@@ -3,30 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ExtraLifeBuy : MonoBehaviour
+public class ExtraAmmoBuy : MonoBehaviour
 {
-    public int lifePrice;
+    public int extraAmmoPrice;
     public PlayerController playerCont;
     private bool buyable;
-    public TextMeshProUGUI lifeCost;
-   
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI extraAmmoCost;
+    public Shooting shootingScript;
 
     // Update is called once per frame
     void Update()
     {
-       if(Score.scoreAmount >= lifePrice && buyable == true && playerCont.lifes < 4)
+        if (Score.scoreAmount >= extraAmmoPrice && buyable == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                BuyExtraLife();
+                BuyExtraAmmo();
             }
-        } 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,7 +30,7 @@ public class ExtraLifeBuy : MonoBehaviour
         if (playerCont != null)
         {
             buyable = true;
-            lifeCost.enabled = true;
+            extraAmmoCost.enabled = true;
         }
     }
 
@@ -47,15 +41,15 @@ public class ExtraLifeBuy : MonoBehaviour
         if (playerCont != null)
         {
             buyable = false;
-            lifeCost.enabled = false;
+            extraAmmoCost.enabled = false;
         }
     }
 
-    private void BuyExtraLife()
+    private void BuyExtraAmmo()
     {
-        Score.scoreAmount -= lifePrice;
+        Score.scoreAmount -= extraAmmoPrice;
         this.gameObject.SetActive(false);
-        playerCont.LifeIncrease();
+        shootingScript.NewMaxAmmo();
         FindObjectOfType<AudioManager>().Play("Coins");
     }
 }

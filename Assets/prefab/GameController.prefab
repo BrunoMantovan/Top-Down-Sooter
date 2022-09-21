@@ -47,6 +47,5 @@ MonoBehaviour:
   deadEnemies: 0
   OP: {fileID: 0}
   OP2: {fileID: 0}
-  OP3: {fileID: 0}
   leaveMsg: {fileID: 0}
-  totalDeadEnemies: 50
+  totalDeadEnemies: 45

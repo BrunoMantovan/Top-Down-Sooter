@@ -63,9 +63,9 @@ public class PlayerController : MonoBehaviour
 
     public bool rotationOn;
 
-    public int lifes = 3;
+    public int lifes = 4;
     public int NumberOfIcons;
-    public int initialLifes = 3;
+    public int initialLifes = 4;
     public Image[] icons;
     public Sprite fullIcon;
     public Sprite emptyIcon;
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Static;
         gameObject.GetComponent<Renderer>().enabled = false;
 
-        if (SceneManager.GetActiveScene().buildIndex == 2) 
+        if (SceneManager.GetActiveScene().buildIndex == 3) 
         {
             GameObject spawnEff2 = Instantiate(spawnEffect2, transform.position, transform.rotation);
             Destroy(spawnEff2, 1.334f);

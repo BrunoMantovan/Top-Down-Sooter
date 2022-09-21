@@ -10,7 +10,7 @@ public class Spawner : MonoBehaviour
     public float startTimeBtwnSpawns;
 
     public int maxEnemies = 10;
-    int enemyCounter = 0; 
+    public int enemyCounter = 0; 
 
     void Awake()
     {
@@ -36,7 +36,13 @@ public class Spawner : MonoBehaviour
         else
         {
             timeBtwnSpawns -= Time.deltaTime;
-        }        
+        }
+
+        if (enemyCounter >= maxEnemies)
+        {
+            Destroy(this.gameObject);
+        }
+
     }
     
    

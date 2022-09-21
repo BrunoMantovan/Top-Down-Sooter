@@ -400,10 +400,11 @@ MonoBehaviour:
   meleeBool: 0
   secondWeapon: 0
   rotationOn: 0
-  lifes: 3
-  NumberOfIcons: 3
-  initialLifes: 3
+  lifes: 4
+  NumberOfIcons: 4
+  initialLifes: 4
   icons:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

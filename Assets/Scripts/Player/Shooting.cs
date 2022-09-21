@@ -70,6 +70,13 @@ public class Shooting : MonoBehaviour
         currentAmmoShotgun = PlayerPrefs.GetInt("shotgunAmmo", currentAmmoShotgun);
 
         extraBulletDamage = PlayerPrefs.GetInt("ExtraBulletDamage", extraBulletDamage);
+
+        fireRate = PlayerPrefs.GetFloat("fireRate", fireRate);
+        bullet2FireRate = PlayerPrefs.GetFloat("bullet2FireRate", bullet2FireRate);
+
+        maxAmmoLMK2 = PlayerPrefs.GetInt("maxAmmoLmk2", maxAmmoLMK2);
+        maxAmmoPlasmaCannon = PlayerPrefs.GetInt("maxAmmoPlasmaCannon", maxAmmoPlasmaCannon);
+        maxAmmoShotgun = PlayerPrefs.GetInt("maxAmmoShotgun", maxAmmoShotgun);
     }
     void Update()
     {
@@ -258,5 +265,23 @@ public class Shooting : MonoBehaviour
     {
         extraBulletDamage = 1;
         PlayerPrefs.SetInt("ExtraBulletDamage", extraBulletDamage);
+    }
+
+    public void NewFireRate()
+    {
+        fireRate = 0.13f;
+        PlayerPrefs.SetFloat("fireRate", fireRate);
+        bullet2FireRate = 0.15f;
+        PlayerPrefs.SetFloat("bullet2FireRate", bullet2FireRate);
+    }
+
+    public void NewMaxAmmo()
+    {
+        maxAmmoLMK2 = 125;
+        PlayerPrefs.SetInt("maxAmmoLmk2", maxAmmoLMK2);
+        maxAmmoPlasmaCannon = 8;
+        PlayerPrefs.SetInt("maxAmmoPlasmaCannon", maxAmmoPlasmaCannon);
+        maxAmmoShotgun = 64;
+        PlayerPrefs.SetInt("maxAmmoShotgun", maxAmmoShotgun);
     }
 }
